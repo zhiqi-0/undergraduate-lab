@@ -46,7 +46,7 @@ class Graph{
 
 template<typename T>
 Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool weight = true):
-        matrix_(std::vector<std::vector<int> >(vertex_num, std::vector<int>(vertex_num, 0))),
+        matrix_(std::vector<std::vector<int> >(vertex_num, std::vector<int>(vertex_num, NoEdge))),
         node_info_(std::vector<GraphNode<T> >(vertex_num),
         visit_info_(std::vector<VisitInfo>(vertex_num){
     std::ifstream datafile(filename);
@@ -119,8 +119,12 @@ void Graph<T>::print(){
 
     for(unsigned i = 0; i < vertex_num; ++i){
         std::cout << i << '\t';
-        for(unsigned j = 0; j < vertex_num; ++j)
-            std::cout << matrix_[i][j] << '\t';
+        for(unsigned j = 0; j < vertex_num; ++j){
+            if(matrix_[i][j] == NoEdge)
+                std::cout << "--\t";
+            else
+                std::cout << matrix_[i][j] << '\t';
+        }
         std::cout << std::endl;
     }
 }
