@@ -1,0 +1,1468 @@
+Release 14.7 Map P.20131013 (nt64)
+Xilinx Mapping Report File for Design 'topout'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol
+high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
+-pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+Target Device  : xc6slx16
+Target Package : csg324
+Target Speed   : -3
+Mapper Version : spartan6 -- $Revision: 1.55 $
+Mapped Date    : Fri Jun 02 20:09:04 2017
+
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:    7
+Slice Logic Utilization:
+  Number of Slice Registers:                 1,688 out of  18,224    9%
+    Number used as Flip Flops:               1,554
+    Number used as Latches:                    134
+    Number used as Latch-thrus:                  0
+    Number used as AND/OR logics:                0
+  Number of Slice LUTs:                      2,592 out of   9,112   28%
+    Number used as logic:                    2,515 out of   9,112   27%
+      Number using O6 output only:           2,221
+      Number using O5 output only:              92
+      Number using O5 and O6:                  202
+      Number used as ROM:                        0
+    Number used as Memory:                      64 out of   2,176    2%
+      Number used as Dual Port RAM:              0
+      Number used as Single Port RAM:           64
+        Number using O6 output only:            64
+        Number using O5 output only:             0
+        Number using O5 and O6:                  0
+      Number used as Shift Register:             0
+    Number used exclusively as route-thrus:     13
+      Number with same-slice register load:      9
+      Number with same-slice carry load:         4
+      Number with other load:                    0
+
+Slice Logic Distribution:
+  Number of occupied Slices:                   834 out of   2,278   36%
+  Number of MUXCYs used:                       232 out of   4,556    5%
+  Number of LUT Flip Flop pairs used:        2,683
+    Number with an unused Flip Flop:         1,044 out of   2,683   38%
+    Number with an unused LUT:                  91 out of   2,683    3%
+    Number of fully used LUT-FF pairs:       1,548 out of   2,683   57%
+    Number of unique control sets:              30
+    Number of slice register sites lost
+      to control set restrictions:             152 out of  18,224    1%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        20 out of     232    8%
+    Number of LOCed IOBs:                       20 out of      20  100%
+
+Specific Feature Utilization:
+  Number of RAMB16BWERs:                         0 out of      32    0%
+  Number of RAMB8BWERs:                          0 out of      64    0%
+  Number of BUFIO2/BUFIO2_2CLKs:                 0 out of      32    0%
+  Number of BUFIO2FB/BUFIO2FB_2CLKs:             0 out of      32    0%
+  Number of BUFG/BUFGMUXs:                       4 out of      16   25%
+    Number used as BUFGs:                        4
+    Number used as BUFGMUX:                      0
+  Number of DCM/DCM_CLKGENs:                     0 out of       4    0%
+  Number of ILOGIC2/ISERDES2s:                   0 out of     248    0%
+  Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     248    0%
+  Number of OLOGIC2/OSERDES2s:                   0 out of     248    0%
+  Number of BSCANs:                              0 out of       4    0%
+  Number of BUFHs:                               0 out of     128    0%
+  Number of BUFPLLs:                             0 out of       8    0%
+  Number of BUFPLL_MCBs:                         0 out of       4    0%
+  Number of DSP48A1s:                            0 out of      32    0%
+  Number of ICAPs:                               0 out of       1    0%
+  Number of MCBs:                                0 out of       2    0%
+  Number of PCILOGICSEs:                         0 out of       2    0%
+  Number of PLL_ADVs:                            0 out of       2    0%
+  Number of PMVs:                                0 out of       1    0%
+  Number of STARTUPs:                            0 out of       1    0%
+  Number of SUSPEND_SYNCs:                       0 out of       1    0%
+
+Average Fanout of Non-Clock Nets:                5.50
+
+Peak Memory Usage:  467 MB
+Total REAL time to MAP completion:  59 secs 
+Total CPU time to MAP completion:   57 secs 
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Timing Report
+Section 11 - Configuration String Information
+Section 12 - Control Set Information
+Section 13 - Utilization by Hierarchy
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+WARNING:Security:43 - No license file was found in the standard Xilinx license
+directory.
+WARNING:Security:44 - Since no license file was found,
+WARNING:Security:42 - Your software subscription period has lapsed. Your current
+version of Xilinx tools will continue to function, but you no longer qualify for
+Xilinx software updates or new releases.
+WARNING:Place:1109 - A clock IOB / BUFGMUX clock component pair have been found
+   that are not placed at an optimal clock IOB / BUFGMUX site pair. The clock
+   IOB component <rst> is placed at site <B8>. The corresponding BUFG component
+   <CPU_top/u_EXMEM/rst_n_inv_BUFG> is placed at site <BUFGMUX_X2Y2>. There is
+   only a select set of IOBs that can use the fast path to the Clocker buffer,
+   and they are not being used. You may want to analyze why this problem exists
+   and correct it. This is normally an ERROR but the CLOCK_DEDICATED_ROUTE
+   constraint was applied on COMP.PIN <rst.PAD> allowing your design to
+   continue. This constraint disables all clock placer rules related to the
+   specified COMP.PIN. The use of this override is highly discouraged as it may
+   lead to very poor timing results. It is recommended that this error condition
+   be corrected in the design.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_149_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_153_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_157_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_151_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_155_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net Left_GND_1_o_AND_147_o is
+   sourced by a combinatorial pin. This is not good design practice. Use the CE
+   pin to control the loading of data into the flip-flop.
+
+Section 3 - Informational
+-------------------------
+INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to
+'C:\Xilinx\1475235112703-ise.lic'.
+INFO:Security:53 - The LM_LICENSE_FILE environment variable is not set.
+INFO:Security:54 - 'xc6slx16' is a WebPack part.
+INFO:LIT:243 - Logical network
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<31> has no load.
+INFO:LIT:395 - The above info message is repeated 31 more times for the
+   following (max. 5 shown):
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<30>,
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<29>,
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<28>,
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<27>,
+   CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qs
+   po_int<26>
+   To see the details of these info messages, please use the -detail switch.
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs.
+INFO:Pack:1716 - Initializing temperature to 85.000 Celsius. (default - Range:
+   0.000 to 85.000 Celsius)
+INFO:Pack:1720 - Initializing voltage to 1.140 Volts. (default - Range: 1.140 to
+   1.260 Volts)
+INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
+   (.mrp).
+INFO:Pack:1650 - Map created a placed design.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+ 352 block(s) removed
+  12 block(s) optimized away
+ 353 signal(s) removed
+
+Section 5 - Removed Logic
+-------------------------
+
+The trimmed logic report below shows the logic removed from your design due to
+sourceless or loadless signals, and VCC or ground connections.  If the removal
+of a signal or symbol results in the subsequent removal of an additional signal
+or symbol, the message explaining that second removal will be indented.  This
+indentation will be repeated as a chain of related logic is removed.
+
+To quickly locate the original cause for the removal of a chain of logic, look
+above the place where that logic is listed in the trimming report, then locate
+the lines that are least indented (begin at the leftmost edge).
+
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<31>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<30>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<29>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<28>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<27>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<26>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<25>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<24>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<23>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<22>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<21>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<20>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<19>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<18>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<17>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<16>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<15>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<14>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<13>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<12>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<11>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<10>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<9>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<8>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<7>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<6>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<5>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<4>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<3>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<2>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<1>" is sourceless and has been removed.
+The signal
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int<0>" is sourceless and has been removed.
+
+The trimmed logic reported below is either:
+   1. part of a cycle
+   2. part of disabled logic
+   3. a side-effect of other trimmed logic
+
+The signal "CPU_top/InstrF<20>" is unused and has been removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_7" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_7" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_8" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_8" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_81" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_81" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_9" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_9" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_3" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_3" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_71" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_71" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_83" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_83" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_84" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_84" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_93" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_93" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_31" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_31" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_72" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_72" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_86" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_86" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_87" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_87" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_96" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_96" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_32" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_32" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_73" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_73" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_89" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_89" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_810" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_810" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_99" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_99" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_33" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_33" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_74" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_74" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_812" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_812" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_813" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_813" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_912" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_912" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_34" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_34" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_75" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_75" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_815" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_815" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_816" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_816" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_915" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_915" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_35" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_35" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_76" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_76" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_818" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_818" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_819" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_819" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_918" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_918" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_36" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_36" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_77" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_77" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_821" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_821" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_822" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_822" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_921" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_921" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_37" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_37" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_78" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_78" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_824" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_824" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_825" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_825" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_924" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_924" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_38" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_38" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_79" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_79" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_827" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_827" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_828" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_828" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_927" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_927" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_39" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_39" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_710" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_710" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_830" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_830" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_831" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_831" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_930" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_930" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_310" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_310" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_711" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_711" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_833" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_833" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_834" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_834" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_933" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_933" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_311" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_311" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_712" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_712" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_836" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_836" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_837" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_837" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_936" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_936" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_312" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_312" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_713" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_713" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_839" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_839" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_840" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_840" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_939" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_939" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_313" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_313" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_714" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_714" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_842" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_842" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_843" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_843" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_942" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_942" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_314" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_314" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_715" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_715" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_845" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_845" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_846" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_846" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_945" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_945" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_315" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_315" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_716" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_716" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_848" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_848" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_849" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_849" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_948" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_948" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_316" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_316" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_717" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_717" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_851" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_851" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_852" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_852" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_951" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_951" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_317" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_317" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_718" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_718" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_854" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_854" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_855" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_855" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_954" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_954" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_318" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_318" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_719" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_719" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_857" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_857" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_858" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_858" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_957" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_957" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_319" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_319" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_720" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_720" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_860" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_860" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_861" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_861" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_960" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_960" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_320" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_320" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_721" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_721" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_863" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_863" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_864" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_864" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_963" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_963" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_321" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_321" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_722" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_722" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_866" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_866" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_867" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_867" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_966" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_966" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_322" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_322" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_723" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_723" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_869" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_869" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_870" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_870" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_969" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_969" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_323" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_323" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_724" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_724" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_872" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_872" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_873" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_873" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_972" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_972" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_324" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_324" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_725" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_725" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_875" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_875" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_876" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_876" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_975" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_975" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_325" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_325" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_726" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_726" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_878" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_878" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_879" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_879" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_978" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_978" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_326" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_326" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_727" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_727" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_881" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_881" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_882" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_882" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_981" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_981" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_327" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_327" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_728" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_728" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_884" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_884" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_885" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_885" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_984" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_984" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_328" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_328" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_729" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_729" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_887" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_887" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_888" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_888" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_987" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_987" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_329" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_329" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_730" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_730" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_890" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_890" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_891" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_891" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_990" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_990" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_330" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_330" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_731" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_731" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_893" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_893" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_894" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_894" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_993" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_993" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_331" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r2_dout_331" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_7" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_7" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_8" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_8" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_81" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_81" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_9" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_9" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_3" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_3" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_71" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_71" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_83" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_83" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_84" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_84" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_93" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_93" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_31" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_31" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_72" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_72" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_86" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_86" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_87" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_87" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_96" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_96" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_32" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_32" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_73" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_73" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_89" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_89" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_810" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_810" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_99" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_99" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_33" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_33" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_74" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_74" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_812" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_812" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_813" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_813" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_912" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_912" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_34" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_34" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_75" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_75" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_815" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_815" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_816" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_816" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_915" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_915" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_35" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_35" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_76" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_76" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_818" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_818" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_819" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_819" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_918" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_918" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_36" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_36" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_77" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_77" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_821" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_821" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_822" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_822" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_921" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_921" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_37" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_37" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_78" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_78" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_824" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_824" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_825" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_825" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_924" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_924" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_38" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_38" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_79" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_79" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_827" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_827" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_828" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_828" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_927" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_927" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_39" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_39" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_710" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_710" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_830" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_830" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_831" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_831" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_930" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_930" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_310" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_310" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_711" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_711" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_833" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_833" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_834" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_834" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_933" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_933" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_311" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_311" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_712" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_712" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_836" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_836" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_837" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_837" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_936" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_936" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_312" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_312" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_713" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_713" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_839" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_839" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_840" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_840" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_939" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_939" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_313" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_313" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_714" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_714" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_842" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_842" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_843" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_843" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_942" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_942" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_314" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_314" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_715" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_715" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_845" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_845" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_846" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_846" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_945" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_945" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_315" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_315" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_716" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_716" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_848" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_848" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_849" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_849" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_948" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_948" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_316" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_316" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_717" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_717" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_851" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_851" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_852" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_852" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_951" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_951" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_317" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_317" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_718" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_718" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_854" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_854" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_855" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_855" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_954" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_954" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_318" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_318" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_719" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_719" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_857" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_857" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_858" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_858" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_957" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_957" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_319" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_319" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_720" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_720" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_860" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_860" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_861" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_861" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_960" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_960" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_320" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_320" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_721" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_721" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_863" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_863" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_864" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_864" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_963" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_963" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_321" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_321" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_722" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_722" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_866" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_866" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_867" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_867" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_966" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_966" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_322" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_322" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_723" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_723" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_869" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_869" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_870" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_870" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_969" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_969" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_323" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_323" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_724" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_724" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_872" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_872" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_873" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_873" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_972" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_972" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_324" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_324" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_725" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_725" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_875" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_875" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_876" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_876" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_975" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_975" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_325" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_325" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_726" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_726" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_878" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_878" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_879" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_879" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_978" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_978" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_326" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_326" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_727" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_727" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_881" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_881" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_882" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_882" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_981" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_981" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_327" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_327" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_728" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_728" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_884" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_884" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_885" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_885" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_984" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_984" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_328" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_328" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_729" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_729" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_887" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_887" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_888" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_888" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_987" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_987" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_329" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_329" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_730" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_730" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_890" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_890" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_891" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_891" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_990" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_990" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_330" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_330" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_731" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_731" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_893" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_893" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_894" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_894" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_993" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_993" (ROM) removed.
+The signal "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_331" is unused and has been
+removed.
+ Unused block "CPU_top/u_ID/u_RegFile/Mmux_r1_dout_331" (ROM) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_0" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_1" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_10" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_11" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_12" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_13" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_14" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_15" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_16" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_17" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_18" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_19" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_2" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_20" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_21" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_22" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_23" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_24" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_25" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_26" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_27" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_28" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_29" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_3" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_30" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_31" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_4" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_5" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_6" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_7" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_8" (FF) removed.
+Unused block
+"CPU_top/u_MEM/u_DataMem/U0/xst_options.dist_mem_inst/gen_sp_ram.spram_inst/qspo
+_int_9" (FF) removed.
+
+Optimized Block(s):
+TYPE 		BLOCK
+LUT6 		CPU_top/u_HazardSignal/Mmux_ForwardAE13
+   optimized to 0
+LUT6 		CPU_top/u_HazardSignal/Mmux_ForwardBE13
+   optimized to 0
+FDC 		CPU_top/u_IDEX/RegRsE_4
+   optimized to 0
+FDC 		CPU_top/u_IDEX/RegWriteAddrE1_4
+   optimized to 0
+GND 		CPU_top/u_IF/u_InstrMem/XST_GND1
+FDC 		CPU_top/u_IFID/InstrD_20
+   optimized to 0
+FDC 		CPU_top/u_IFID/InstrD_20_1
+   optimized to 0
+FDC 		CPU_top/u_IFID/InstrD_25
+   optimized to 0
+FDC 		CPU_top/u_IFID/InstrD_25_1
+   optimized to 0
+FDC 		CPU_top/u_IFID/InstrD_30
+   optimized to 0
+GND 		XST_GND
+VCC 		XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew | Reg (s)      | Resistor | IOB      |
+|                                    |                  |           |                      | Term  | Strength | Rate |              |          | Delay    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DataMemAddr1<0>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| DataMemAddr1<1>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| DataMemAddr1<2>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| DataMemAddr1<3>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| DataMemAddr1<4>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| DataMemAddr1<5>                    | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| Hack                               | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| Led<0>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<1>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<2>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<3>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<4>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<5>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<6>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Led<7>                             | IOB              | OUTPUT    | LVCMOS33             |       | 12       | SLOW |              |          |          |
+| Left1                              | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| Mode                               | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| Right1                             | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| clk                                | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
+| rst                                | IOB              | INPUT     | LVCMOS33             |       |          |      |              |          |          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Timing Report
+--------------------------
+A logic-level (pre-route) timing report can be generated by using Xilinx static
+timing analysis tools, Timing Analyzer (GUI) or TRCE (command line), with the
+mapped NCD and PCF files. Please note that this timing report will be generated
+using estimated delay information. For accurate numbers, please generate a
+timing report with the post Place and Route NCD file.
+
+For more information about the Timing Analyzer, consult the Xilinx Timing
+Analyzer Reference Manual; for more information about TRCE, consult the Xilinx
+Command Line Tools User Guide "TRACE" chapter.
+
+Section 11 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
+
+Section 12 - Control Set Information
+------------------------------------
+Use the "-detail" map option to print out Control Set Information.
+
+Section 13 - Utilization by Hierarchy
+-------------------------------------
+Use the "-detail" map option to print out the Utilization by Hierarchy section.

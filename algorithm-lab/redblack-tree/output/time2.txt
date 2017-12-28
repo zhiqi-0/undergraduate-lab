@@ -1,0 +1,5 @@
+rbtree size 12: 1.054 us, 0.347 us, total time: 1.401 us
+rbtree size 24: 0.48 us, 0.496 us, total time: 0.976 us
+rbtree size 36: 0.653 us, 0.737 us, total time: 1.39 us
+rbtree size 48: 0.615 us, 0.583 us, total time: 1.198 us
+rbtree size 60: 0.694 us, 0.669 us, total time: 1.363 us

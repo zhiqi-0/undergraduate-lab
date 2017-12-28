@@ -1,0 +1,5 @@
+rbtree size 12 , delete: 16,8
+rbtree size 24 , delete: 23,18
+rbtree size 36 , delete: 21,18
+rbtree size 48 , delete: 20,16
+rbtree size 60 , delete: 20,15

@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=C:\Users\ralzq\Study\ISEexp\MIPS_pipeline_out\topout.ncd
+OUTFILE=C:\Users\ralzq\Study\ISEexp\MIPS_pipeline_out\topout.bit
+FAMILY=Spartan6
+PART=xc6slx16-3csg324
+WORKINGDIR=C:\Users\ralzq\Study\ISEexp\MIPS_pipeline_out
+LICENSE=ISE
+USER_INFO=135256_15690819_173552794_661

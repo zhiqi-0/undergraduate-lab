@@ -1,0 +1,221 @@
+--------------------------------------------------------------------------------
+Release 14.7 Trace  (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\trce.exe -intstyle ise -v 3 -s 3
+-n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf
+Nexys3_Master.ucf
+
+Design file:              topout.ncd
+Physical constraint file: topout.pcf
+Device,package,speed:     xc6slx16,csg324,C,-3 (PRODUCTION 1.23 2013-10-13)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock clk
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+Left1       |    3.673(R)|      SLOW  |   -1.616(R)|      FAST  |clk_BUFGP         |   0.000|
+Right1      |    3.562(R)|      SLOW  |   -1.245(R)|      FAST  |clk_BUFGP         |   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock rst
+---------------+------------+------------+------------+------------+------------------------------+--------+
+               |Max Setup to|  Process   |Max Hold to |  Process   |                              | Clock  |
+Source         | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s)             | Phase  |
+---------------+------------+------------+------------+------------+------------------------------+--------+
+DataMemAddr1<0>|    3.876(R)|      SLOW  |    0.157(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+DataMemAddr1<1>|    2.764(R)|      SLOW  |    1.030(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+DataMemAddr1<2>|    2.752(R)|      SLOW  |    1.011(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+DataMemAddr1<3>|    2.960(R)|      SLOW  |    0.714(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+DataMemAddr1<4>|    3.065(R)|      SLOW  |    1.179(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+DataMemAddr1<5>|    2.916(R)|      SLOW  |    0.816(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+Hack           |    3.702(R)|      SLOW  |    0.660(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+Mode           |    3.516(R)|      SLOW  |    1.255(R)|      SLOW  |CPU_top/u_EXMEM/rst_n_inv_BUFG|   0.000|
+---------------+------------+------------+------------+------------+------------------------------+--------+
+
+Clock rst to Pad
+------------+-----------------+------------+-----------------+------------+----------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                      | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s)     | Phase  |
+------------+-----------------+------------+-----------------+------------+----------------------+--------+
+Led<0>      |        22.226(F)|      SLOW  |        13.569(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        19.587(F)|      SLOW  |        11.964(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        21.064(F)|      SLOW  |        12.983(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.864(F)|      SLOW  |        12.825(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        20.508(F)|      SLOW  |        12.642(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        19.259(F)|      SLOW  |        11.572(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<1>      |        21.468(F)|      SLOW  |        13.126(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        18.955(F)|      SLOW  |        11.568(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.548(F)|      SLOW  |        12.552(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.559(F)|      SLOW  |        12.594(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.959(F)|      SLOW  |        12.253(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        18.970(F)|      SLOW  |        11.381(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<2>      |        21.187(F)|      SLOW  |        12.931(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        19.033(F)|      SLOW  |        11.604(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.526(F)|      SLOW  |        12.597(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.143(F)|      SLOW  |        12.340(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.533(F)|      SLOW  |        11.992(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        18.965(F)|      SLOW  |        11.320(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<3>      |        21.648(F)|      SLOW  |        13.154(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        19.097(F)|      SLOW  |        11.708(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.559(F)|      SLOW  |        12.700(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.670(F)|      SLOW  |        12.714(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.850(F)|      SLOW  |        12.271(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        19.201(F)|      SLOW  |        11.581(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<4>      |        21.200(F)|      SLOW  |        12.958(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        18.583(F)|      SLOW  |        11.357(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.069(F)|      SLOW  |        12.367(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.185(F)|      SLOW  |        12.381(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.692(F)|      SLOW  |        12.146(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        18.423(F)|      SLOW  |        11.137(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<5>      |        20.844(F)|      SLOW  |        12.687(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        18.366(F)|      SLOW  |        11.165(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.068(F)|      SLOW  |        12.326(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        19.972(F)|      SLOW  |        12.192(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.360(F)|      SLOW  |        11.741(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        18.335(F)|      SLOW  |        11.065(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<6>      |        21.823(F)|      SLOW  |        13.304(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        19.242(F)|      SLOW  |        11.731(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.902(F)|      SLOW  |        12.855(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        21.007(F)|      SLOW  |        12.850(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        20.507(F)|      SLOW  |        12.558(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        19.073(F)|      SLOW  |        11.511(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+Led<7>      |        21.584(F)|      SLOW  |        13.026(F)|      FAST  |Left_GND_1_o_AND_147_o|   0.000|
+            |        19.050(F)|      SLOW  |        11.544(F)|      FAST  |Left_GND_1_o_AND_149_o|   0.000|
+            |        20.596(F)|      SLOW  |        12.657(F)|      FAST  |Left_GND_1_o_AND_151_o|   0.000|
+            |        20.688(F)|      SLOW  |        12.526(F)|      FAST  |Left_GND_1_o_AND_153_o|   0.000|
+            |        19.841(F)|      SLOW  |        12.164(F)|      FAST  |Left_GND_1_o_AND_155_o|   0.000|
+            |        18.680(F)|      SLOW  |        11.272(F)|      FAST  |Left_GND_1_o_AND_157_o|   0.000|
+------------+-----------------+------------+-----------------+------------+----------------------+--------+
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    3.332|         |         |         |
+rst            |    5.406|    5.406|         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock rst
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |         |         |   -0.438|         |
+rst            |    7.134|   10.772|    0.876|    3.868|
+---------------+---------+---------+---------+---------+
+
+Pad to Pad
+---------------+---------------+---------+
+Source Pad     |Destination Pad|  Delay  |
+---------------+---------------+---------+
+DataMemAddr1<0>|Led<0>         |   14.684|
+DataMemAddr1<0>|Led<1>         |   14.395|
+DataMemAddr1<0>|Led<2>         |   14.390|
+DataMemAddr1<0>|Led<3>         |   14.626|
+DataMemAddr1<0>|Led<4>         |   13.848|
+DataMemAddr1<0>|Led<5>         |   13.760|
+DataMemAddr1<0>|Led<6>         |   14.498|
+DataMemAddr1<0>|Led<7>         |   14.105|
+DataMemAddr1<1>|Led<0>         |   13.854|
+DataMemAddr1<1>|Led<1>         |   13.305|
+DataMemAddr1<1>|Led<2>         |   12.879|
+DataMemAddr1<1>|Led<3>         |   13.196|
+DataMemAddr1<1>|Led<4>         |   13.038|
+DataMemAddr1<1>|Led<5>         |   12.706|
+DataMemAddr1<1>|Led<6>         |   13.853|
+DataMemAddr1<1>|Led<7>         |   13.187|
+DataMemAddr1<2>|Led<0>         |   13.438|
+DataMemAddr1<2>|Led<1>         |   13.133|
+DataMemAddr1<2>|Led<2>         |   12.717|
+DataMemAddr1<2>|Led<3>         |   13.244|
+DataMemAddr1<2>|Led<4>         |   12.759|
+DataMemAddr1<2>|Led<5>         |   12.546|
+DataMemAddr1<2>|Led<6>         |   13.581|
+DataMemAddr1<2>|Led<7>         |   13.262|
+DataMemAddr1<3>|Led<0>         |   14.217|
+DataMemAddr1<3>|Led<1>         |   13.701|
+DataMemAddr1<3>|Led<2>         |   13.679|
+DataMemAddr1<3>|Led<3>         |   13.712|
+DataMemAddr1<3>|Led<4>         |   13.222|
+DataMemAddr1<3>|Led<5>         |   13.221|
+DataMemAddr1<3>|Led<6>         |   14.055|
+DataMemAddr1<3>|Led<7>         |   13.749|
+DataMemAddr1<4>|Led<0>         |   13.799|
+DataMemAddr1<4>|Led<1>         |   13.167|
+DataMemAddr1<4>|Led<2>         |   13.245|
+DataMemAddr1<4>|Led<3>         |   13.309|
+DataMemAddr1<4>|Led<4>         |   12.795|
+DataMemAddr1<4>|Led<5>         |   12.578|
+DataMemAddr1<4>|Led<6>         |   13.454|
+DataMemAddr1<4>|Led<7>         |   13.262|
+DataMemAddr1<5>|Led<0>         |   14.221|
+DataMemAddr1<5>|Led<1>         |   13.463|
+DataMemAddr1<5>|Led<2>         |   13.182|
+DataMemAddr1<5>|Led<3>         |   13.643|
+DataMemAddr1<5>|Led<4>         |   13.195|
+DataMemAddr1<5>|Led<5>         |   12.839|
+DataMemAddr1<5>|Led<6>         |   13.818|
+DataMemAddr1<5>|Led<7>         |   13.579|
+Hack           |Led<0>         |   15.291|
+Hack           |Led<1>         |   14.635|
+Hack           |Led<2>         |   14.578|
+Hack           |Led<3>         |   14.675|
+Hack           |Led<4>         |   14.088|
+Hack           |Led<5>         |   13.932|
+Hack           |Led<6>         |   14.790|
+Hack           |Led<7>         |   14.124|
+Mode           |Led<0>         |   14.324|
+Mode           |Led<1>         |   14.035|
+Mode           |Led<2>         |   14.030|
+Mode           |Led<3>         |   14.266|
+Mode           |Led<4>         |   13.488|
+Mode           |Led<5>         |   13.400|
+Mode           |Led<6>         |   14.207|
+Mode           |Led<7>         |   13.888|
+rst            |Led<0>         |   18.071|
+rst            |Led<1>         |   17.515|
+rst            |Led<2>         |   17.160|
+rst            |Led<3>         |   17.626|
+rst            |Led<4>         |   17.141|
+rst            |Led<5>         |   16.928|
+rst            |Led<6>         |   17.963|
+rst            |Led<7>         |   17.644|
+---------------+---------------+---------+
+
+
+Analysis completed Fri Jun 02 20:10:48 2017 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 299 MB
+
+
+

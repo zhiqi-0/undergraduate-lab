@@ -1,0 +1,65 @@
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -i -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -i -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -i -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -i -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 
+xst -intstyle ise -ifn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.xst" -ofn "C:/Users/ralzq/Study/ISEexp/MIPS_pipeline_out/topout.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd ipcore_dir -nt timestamp -uc Nexys3_Master.ucf -p xc6slx16-csg324-3 topout.ngc topout.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o topout_map.ncd topout.ngd topout.pcf 
+par -w -intstyle ise -ol high -mt off topout_map.ncd topout.ncd topout.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml topout.twx topout.ncd -o topout.twr topout.pcf -ucf Nexys3_Master.ucf 
+bitgen -intstyle ise -f topout.ut topout.ncd 

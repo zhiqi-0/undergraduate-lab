@@ -1,0 +1,4 @@
+data len: 4: 0.408 us
+data len: 16: 0.516 us
+data len: 32: 0.771 us
+data len: 60: 1.487 us

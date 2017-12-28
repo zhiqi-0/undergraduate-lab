@@ -1,0 +1,4 @@
+Matrix Num: 5 time: 4.893us
+Matrix Num: 10 time: 9.954us
+Matrix Num: 20 time: 33.119us
+Matrix Num: 30 time: 52.77us
