@@ -41,7 +41,10 @@ class Graph{
     void VisitReset();
     std::vector<std::vector<int> > StrongConn();
     void Dfs();
-    void print();
+    // output information
+    void ShowGraphInfo();
+    void ShowVisitInfo();
+    void ShowDebugInfo();
 };
 
 template<typename T>
@@ -109,7 +112,7 @@ void Graph<T>::Dfs(){
 }
 
 template<typename T>
-void Graph<T>::print(){
+void Graph<T>::ShowGraphInfo(){
     std::size_t vertex_num = matrix_.size();
 
     std::cout << ' ' << '\t';
@@ -127,6 +130,40 @@ void Graph<T>::print(){
         }
         std::cout << std::endl;
     }
+}
+
+template<typename T>
+void Graph<T>::ShowVisitInfo(){
+    std::size_t vertex_num = matrix_.size();
+    for(unsigned i = 0; i < vertex_num; ++i){
+        std::cout << "vertex: " << i << '\t';
+        std::cout << "start time: " << visit_info_[i].start_time << '\t';
+        std::cout << "end time: " << visit_info_[i].end_time << '\t';
+        std::cout << "visit color: ";
+        switch(visit_info_[i].color){
+            case VisitColor::White:
+                std::cout << "White"; break;
+            case VisitColor::Grey:
+                std::cout << "Grey"; break;
+            case VisietColor::Black:
+                std::cout << "Black"; break;
+            default:
+                std::cout << "Unknown";
+        }
+        std::cout << std::endl;
+    }
+}
+
+template<typename T>
+void Graph<T>::ShowDebugInfo(){
+    std::size_t vertex_num = matrix_.size();
+    std::cout << "Graph vertex size: " << vertex_num << std::endl;
+
+    std::cout << "Graph basic info:" << std::endl;
+    ShowGraphInfo();
+
+    std::cout << "Graph visit info:" << std::endl;
+    ShowVisitInfo();
 }
 
 } // namespace graph
