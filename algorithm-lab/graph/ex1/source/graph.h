@@ -5,11 +5,14 @@
 #include <fstream>
 #include <cstdlib>
 
+#ifndef LZQ_GRAPH_H_
+#define LZQ_GRAPH_H_
+
 namespace graph{
 
 const int NoEdge = INT_MAX;
 
-enum VisitColor = {White = 0, Grey, Black};
+enum VisitColor{White = 0, Grey, Black};
 
 template<typename T>
 class GraphNode{
@@ -24,7 +27,7 @@ struct VisitInfo{
     int end_time;
     int parent;
     VisitColor color;
-    VisitTime() start_time(0), end_time(0), parent(0), color(VisitColor::White) {}
+    VisitInfo(): start_time(0), end_time(0), parent(0), color(VisitColor::White) {}
 };
 
 template<typename T>
@@ -32,11 +35,11 @@ class Graph{
  private:
     std::vector<std::vector<int> > matrix_;
     std::vector<GraphNode<T> > node_info_;
-    std::vector<Visitinfo> visit_info_;
+    std::vector<VisitInfo> visit_info_;
 
     void DfsVisit(int node, int time);
  public:
-    Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool weight = true);
+    Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool have_weight = true);
     Graph() {};
     void VisitReset();
     std::vector<std::vector<int> > StrongConn();
@@ -48,10 +51,10 @@ class Graph{
 };
 
 template<typename T>
-Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool weight = true):
+Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool direct, bool have_weight):
         matrix_(std::vector<std::vector<int> >(vertex_num, std::vector<int>(vertex_num, NoEdge))),
-        node_info_(std::vector<GraphNode<T> >(vertex_num),
-        visit_info_(std::vector<VisitInfo>(vertex_num){
+        node_info_(std::vector<GraphNode<T> >(vertex_num)),
+        visit_info_(std::vector<VisitInfo>(vertex_num)){
     std::ifstream datafile(filename);
     if(!datafile.is_open()){
         std::cerr << "data file open fail. Initiate graph fail." << std::endl;
@@ -59,30 +62,31 @@ Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool 
     }
     char read_parser = 0;
     int vertex1, weight = 1, vertex2;
-    for(unsigned i = 0; i < vertex_num; ++i){
+    while(datafile.peek()!= EOF && datafile.good()){
         datafile >> vertex1;
-        while(read_parser != parser)
+        do{
             datafile >> read_parser;
+        }while(read_parser != parser);
 
-        if(weight){
-            read_parser = 0;
+        if(have_weight){
             datafile >> weight;
-            while(read_parser != parser)
+            do{
                 datafile >> read_parser;
+            }while(read_parser != parser);
         }
 
         datafile >> vertex2;
         if(vertex1 >= vertex_num || vertex2 >= vertex_num){
-            std::cerr << "initial data error, vertex can't be greater or equal to vertex_num\n";
+            std::cout << "initial data error, vertex can't be greater or equal to vertex_num\n";
             exit(2);
         }
         // there need more check: nan & parser & EOF check
-        read_parser = 0;
         if(direct)
             matrix_[vertex1][vertex2] = 1;
         else
             matrix_[vertex1][vertex2] = matrix_[vertex2][vertex1] = weight;
     }
+    datafile.close();
 }
 
 template<typename T>
@@ -92,12 +96,12 @@ void Graph<T>::DfsVisit(int node, int visit_time){
     visit_info_[node].color = VisitColor::Grey;
     for(int i = 0; i < matrix_[node].size(); ++i){
         if(matrix_[node][i] != NoEdge &&
-           visit_info_[i].color = VisitColor::White){
+           visit_info_[i].color == VisitColor::White){
             visit_info_[i].parent = node;
             DfsVisit(i, visit_time);
         }
     }
-    visit_info_[node].color = VisitColor::black;
+    visit_info_[node].color = VisitColor::Black;
     visit_time += 1;
     visit_info_[node].end_time = visit_time;
 }
@@ -145,7 +149,7 @@ void Graph<T>::ShowVisitInfo(){
                 std::cout << "White"; break;
             case VisitColor::Grey:
                 std::cout << "Grey"; break;
-            case VisietColor::Black:
+            case VisitColor::Black:
                 std::cout << "Black"; break;
             default:
                 std::cout << "Unknown";
@@ -167,3 +171,5 @@ void Graph<T>::ShowDebugInfo(){
 }
 
 } // namespace graph
+
+#endif
