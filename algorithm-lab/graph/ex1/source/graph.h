@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <tuple>
+#include <algorithm>
 
 #ifndef LZQ_GRAPH_H_
 #define LZQ_GRAPH_H_
@@ -37,11 +39,13 @@ class Graph{
     std::vector<GraphNode<T> > node_info_;
     std::vector<VisitInfo> visit_info_;
 
-    void DfsVisit(int node, int time);
+    void DfsVisit(int node, int& time);
+    void DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn);
  public:
     Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool have_weight = true);
     Graph() {};
     void VisitReset();
+    void ColorReset();
     std::vector<std::vector<int> > StrongConn();
     void Dfs();
     // output information
@@ -90,7 +94,19 @@ Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool 
 }
 
 template<typename T>
-void Graph<T>::DfsVisit(int node, int visit_time){
+void Graph<T>::VisitReset(){    // trouble
+    for(auto e : visit_info_)
+        e = VisitInfo();
+}
+
+template<typename T>
+void Graph<T>::ColorReset(){
+    for(int i = 0; i < visit_info_.size(); ++i)
+        visit_info_[i].color = VisitColor::White;
+}
+
+template<typename T>
+void Graph<T>::DfsVisit(int node, int &visit_time){
     visit_time = visit_time + 1;
     visit_info_[node].start_time = visit_time;
     visit_info_[node].color = VisitColor::Grey;
@@ -107,7 +123,51 @@ void Graph<T>::DfsVisit(int node, int visit_time){
 }
 
 template<typename T>
+void Graph<T>::DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn){
+    visit_info_[node].color = VisitColor::Grey;
+    for(int i = 0; i < matrix[node].size(); ++i){
+        if(matrix[node][i] != NoEdge &&
+           visit_info_[i].color == VisitColor::White){
+               strong_conn.push_back(i);
+               DeEndDfsVisit(matrix, i, strong_conn);
+        }
+    }
+    visit_info_[node].color = VisitColor::Black;
+}
+
+template<typename T>
+std::vector<std::vector<int> > Graph<T>::StrongConn(){
+    std::vector<std::vector<int> > res;
+    Dfs();
+
+    // transport matrix
+    std::vector<std::vector<int> > t_matrix(matrix_);
+    int matrix_size = t_matrix.size();
+    for(int i = 0; i < matrix_size; ++i){
+        for(int j = i; j < matrix_size; ++j)
+            std::swap(t_matrix[i][j], t_matrix[j][i]);
+    }
+
+    std::vector<std::tuple<int, int> > visit_order;
+    for(int i = 0; i < matrix_size; ++i)
+        visit_order.push_back(std::make_tuple(i, visit_info_[i].end_time));
+    sort(visit_order.begin(), visit_order.end(), [](std::tuple<int, int> a, std::tuple<int, int> b) -> bool {return std::get<1>(a) > std::get<1>(b);});
+    // start Dfs on t_matrix
+    ColorReset();
+    for(auto e : visit_order){
+        int visit_node = std::get<0>(e);
+        if(visit_info_[visit_node].color == VisitColor::White){
+            std::vector<int> new_conn(1, visit_node);
+            DeEndDfsVisit(t_matrix, visit_node, new_conn);
+            res.push_back(new_conn);
+        }
+    }
+    return res;
+}
+
+template<typename T>
 void Graph<T>::Dfs(){
+    VisitReset();
     int visit_time = 0;
     for(int i = 0; i < node_info_.size(); ++i){
         if(visit_info_[i].color == VisitColor::White)
