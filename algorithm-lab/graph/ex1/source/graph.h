@@ -1,69 +1,81 @@
 #include <iostream>
 #include <vector>
+#include <list>
 #include <climits>
 #include <string>
 #include <fstream>
 #include <cstdlib>
 #include <tuple>
 #include <algorithm>
+#include "lzq.h"
 
 #ifndef LZQ_GRAPH_H_
 #define LZQ_GRAPH_H_
 
 namespace graph{
 
-const int NoEdge = INT_MAX;
+template<typename E>
+using Adj = std::vector<std::list<E> >;
 
 enum VisitColor{White = 0, Grey, Black};
 
 template<typename T>
-class GraphNode{
+class Vertex{
  public:
+    int order_;
     T attr_;
-    GraphNode() {}
-    GraphNode(T attr): attr_(attr) {}
+    VisitColor color_;
+    int start_time_;
+    int end_time_;
+    int parent_;
+    Vertex(int order = 0): order_(order), start_time_(0), end_time_(0), parent_(0), color_(VisitColor::White) {}
+    Vertex(T attr, int order): order_(order), start_time_(0), end_time_(0), parent_(0), color_(VisitColor::White), attr_(attr) {}
 };
 
-struct VisitInfo{
-    int start_time;
-    int end_time;
-    int parent;
-    VisitColor color;
-    VisitInfo(): start_time(0), end_time(0), parent(0), color(VisitColor::White) {}
-};
-
-template<typename T>
+template<typename V>
 class Graph{
  private:
-    std::vector<std::vector<int> > matrix_;
-    std::vector<GraphNode<T> > node_info_;
-    std::vector<VisitInfo> visit_info_;
-
-    void DfsVisit(int node, int& time);
+    // Adjacy table stores vertex order & edge weight
+    Adj<std::tuple<int, int> > adj_;
+    std::vector<Vertex<V> > node_list_;
+    void DfsVisit(int node, int& time, std::vector<int>& conn, Adj<std::tuple<int, int> >* p_adj = nullptr);
     void DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn);
+
  public:
+    // file initializer
     Graph(std::string filename, char parser, std::size_t vertex_num, bool direct = true, bool have_weight = true);
+    // default initializer, init an empyt graph
     Graph() {};
-    void VisitReset();
-    void ColorReset();
+    void inline VisitReset();
+    void inline ColorReset();
+
+    // basic info
+    inline bool setEdgeWeight(int vertex1, int vertex2, int weight);
+    inline int* findEdge(int vertex1, int vertex2);
+
     std::vector<std::vector<int> > StrongConn();
-    void Dfs();
+    std::vector<std::vector<int> > Dfs();
     // output information
     void ShowGraphInfo();
     void ShowVisitInfo();
     void ShowDebugInfo();
+    void GraphvizView(std::string filename, bool dump_png, bool dump_svg);
 };
 
-template<typename T>
-Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool direct, bool have_weight):
-        matrix_(std::vector<std::vector<int> >(vertex_num, std::vector<int>(vertex_num, NoEdge))),
-        node_info_(std::vector<GraphNode<T> >(vertex_num)),
-        visit_info_(std::vector<VisitInfo>(vertex_num)){
+template<typename V>
+Graph<V>::Graph(std::string filename, char parser, std::size_t vertex_num, bool direct, bool have_weight):
+        adj_(vertex_num),
+        node_list_(std::vector<Vertex<V> >(vertex_num)){
+
     std::ifstream datafile(filename);
     if(!datafile.is_open()){
         std::cerr << "data file open fail. Initiate graph fail." << std::endl;
         exit(1);
     }
+    // initialize vertex list
+    for(int i = 0; i < vertex_num; ++i)
+        node_list_[i] = Vertex<V>(i);
+    
     char read_parser = 0;
     int vertex1, weight = 1, vertex2;
     while(datafile.peek()!= EOF && datafile.good()){
@@ -85,45 +97,78 @@ Graph<T>::Graph(std::string filename, char parser, std::size_t vertex_num, bool 
             exit(2);
         }
         // there need more check: nan & parser & EOF check
-        if(direct)
-            matrix_[vertex1][vertex2] = 1;
-        else
-            matrix_[vertex1][vertex2] = matrix_[vertex2][vertex1] = weight;
+        setEdgeWeight(vertex1, vertex2, weight);
+        if(!direct)
+            setEdgeWeight(vertex2, vertex1, weight);
     }
     datafile.close();
 }
 
-template<typename T>
-void Graph<T>::VisitReset(){    // trouble
-    for(auto e : visit_info_)
-        e = VisitInfo();
+template<typename V>
+void Graph<V>::VisitReset(){    // trouble
+    for(int i = 0; i < node_list_.size(); ++i){
+        node_list_[i].start_time_ = node_list_[i].end_time_ = node_list_[i].parent_ = 0;
+    }
 }
 
-template<typename T>
-void Graph<T>::ColorReset(){
-    for(int i = 0; i < visit_info_.size(); ++i)
-        visit_info_[i].color = VisitColor::White;
+template<typename V>
+void Graph<V>::ColorReset(){
+    for(int i = 0; i < node_list_.size(); ++i){
+        node_list_[i].color_ = VisitColor::White;
+    }
 }
 
-template<typename T>
-void Graph<T>::DfsVisit(int node, int &visit_time){
-    visit_time = visit_time + 1;
-    visit_info_[node].start_time = visit_time;
-    visit_info_[node].color = VisitColor::Grey;
-    for(int i = 0; i < matrix_[node].size(); ++i){
-        if(matrix_[node][i] != NoEdge &&
-           visit_info_[i].color == VisitColor::White){
-            visit_info_[i].parent = node;
-            DfsVisit(i, visit_time);
+// if (vertex1, vertex2) doesn't exist, then make a edge with weight provided
+// only when vertex1 or vertex2 out of range, the function will do nothing then return false
+// should raise an exception
+template<typename V>
+bool Graph<V>::setEdgeWeight(int vertex1, int vertex2, int weight){
+    if(vertex1 >= adj_.size() || vertex2 >= adj_.size()){
+        std::cerr << "Wrong set edge weight. Vertex order wrong." << std::endl;
+        return false;
+    }
+    for(auto e = adj_[vertex1].begin(); e != adj_[vertex1].end(); e++){
+        if(std::get<0>(*e) == vertex2){
+            std::get<1>(*e) = weight;
+            return true;
         }
     }
-    visit_info_[node].color = VisitColor::Black;
-    visit_time += 1;
-    visit_info_[node].end_time = visit_time;
+    adj_[vertex1].push_back(std::make_tuple(vertex2, weight));
+    return true;
 }
 
-template<typename T>
-void Graph<T>::DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn){
+template<typename V>
+int* Graph<V>::findEdge(int vertex1, int vertex2){
+    for(auto e = adj_[vertex1].begin(); e != adj_[vertex1].end(); e++){
+        if(std::get<0>(*e) == vertex2)
+            return &std::get<1>(*e);
+    }
+    return nullptr;
+}
+
+
+template<typename V>
+void Graph<V>::DfsVisit(int node, int &visit_time, std::vector<int>& conn, Adj<std::tuple<int, int> >* p_adj){
+    Adj<std::tuple<int, int> >* adj;
+    adj = p_adj ? p_adj : &adj_;
+    conn.push_back(node);
+    visit_time = visit_time + 1;
+    node_list_[node].start_time_ = visit_time;
+    node_list_[node].color_ = VisitColor::Grey;
+    for(auto iter = (*adj)[node].begin(); iter != (*adj)[node].end(); ++iter){
+        int i = std::get<0>(*iter);
+        if(node_list_[i].color_ == VisitColor::White){
+            node_list_[i].parent_ = node;
+            DfsVisit(i, visit_time, conn, p_adj);
+        }
+    }
+    node_list_[node].color_ = VisitColor::Black;
+    visit_time += 1;
+    node_list_[node].end_time_ = visit_time;
+}
+
+/*template<typename V>
+void Graph<V>::DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn){
     visit_info_[node].color = VisitColor::Grey;
     for(int i = 0; i < matrix[node].size(); ++i){
         if(matrix[node][i] != NoEdge &&
@@ -133,51 +178,64 @@ void Graph<T>::DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, s
         }
     }
     visit_info_[node].color = VisitColor::Black;
-}
+}*/
 
-template<typename T>
-std::vector<std::vector<int> > Graph<T>::StrongConn(){
-    std::vector<std::vector<int> > res;
+template<typename V>
+std::vector<std::vector<int> > Graph<V>::StrongConn(){
     Dfs();
 
-    // transport matrix
-    std::vector<std::vector<int> > t_matrix(matrix_);
-    int matrix_size = t_matrix.size();
-    for(int i = 0; i < matrix_size; ++i){
-        for(int j = i; j < matrix_size; ++j)
-            std::swap(t_matrix[i][j], t_matrix[j][i]);
+    // transpose adjacency table
+    int node_size = node_list_.size();
+    Adj<std::tuple<int, int> > t_adj(node_size);
+    for(int vertex1 = 0; vertex1 < node_size; ++vertex1){
+        for(auto e = adj_[vertex1].begin(); e != adj_[vertex1].end(); e++){
+            int vertex2 = std::get<0>(*e);
+            int weight = std::get<1>(*e);
+            t_adj[vertex2].push_back(std::make_tuple(vertex1, weight));
+        }
     }
 
+    //ShowDebugInfo();
+
+    std::vector<std::vector<int> > res;
     std::vector<std::tuple<int, int> > visit_order;
-    for(int i = 0; i < matrix_size; ++i)
-        visit_order.push_back(std::make_tuple(i, visit_info_[i].end_time));
+    for(int i = 0; i < node_size; ++i)
+        visit_order.push_back(std::make_tuple(i, node_list_[i].end_time_));
     sort(visit_order.begin(), visit_order.end(), [](std::tuple<int, int> a, std::tuple<int, int> b) -> bool {return std::get<1>(a) > std::get<1>(b);});
-    // start Dfs on t_matrix
-    ColorReset();
-    for(auto e : visit_order){
-        int visit_node = std::get<0>(e);
-        if(visit_info_[visit_node].color == VisitColor::White){
-            std::vector<int> new_conn(1, visit_node);
-            DeEndDfsVisit(t_matrix, visit_node, new_conn);
-            res.push_back(new_conn);
+    // start Dfs on t_adj
+    ColorReset(); VisitReset();
+    int visit_time = 0;
+    int conn_size = 0;
+    for(int i = 0; i < visit_order.size(); ++i){
+        int node = std::get<0>(visit_order[i]);
+        if(node_list_[node].color_ == VisitColor::White){
+            //std::cout << "Visit Node: " << node << std::endl;
+            std::vector<int> slice;
+            DfsVisit(node, visit_time, slice, &t_adj);
+            res.push_back(slice);
         }
     }
     return res;
 }
 
-template<typename T>
-void Graph<T>::Dfs(){
-    VisitReset();
+template<typename V>
+std::vector<std::vector<int> > Graph<V>::Dfs(){
+    ColorReset(); VisitReset();
+    std::vector<std::vector<int> > conn;
     int visit_time = 0;
-    for(int i = 0; i < node_info_.size(); ++i){
-        if(visit_info_[i].color == VisitColor::White)
-            DfsVisit(i, visit_time);
+    for(int i = 0; i < node_list_.size(); ++i){
+        if(node_list_[i].color_ == VisitColor::White){
+            std::vector<int> slice;
+            DfsVisit(i, visit_time, slice);
+            conn.push_back(slice);
+        }
     }
+    return conn;
 }
 
-template<typename T>
-void Graph<T>::ShowGraphInfo(){
-    std::size_t vertex_num = matrix_.size();
+template<typename V>
+void Graph<V>::ShowGraphInfo(){
+    std::size_t vertex_num = adj_.size();
 
     std::cout << ' ' << '\t';
     for(unsigned i = 0; i < vertex_num; ++i)
@@ -187,24 +245,25 @@ void Graph<T>::ShowGraphInfo(){
     for(unsigned i = 0; i < vertex_num; ++i){
         std::cout << i << '\t';
         for(unsigned j = 0; j < vertex_num; ++j){
-            if(matrix_[i][j] == NoEdge)
+            int* edge_weight = findEdge(i, j);
+            if(!edge_weight)
                 std::cout << "--\t";
             else
-                std::cout << matrix_[i][j] << '\t';
+                std::cout << *edge_weight << '\t';
         }
         std::cout << std::endl;
     }
 }
 
-template<typename T>
-void Graph<T>::ShowVisitInfo(){
-    std::size_t vertex_num = matrix_.size();
+template<typename V>
+void Graph<V>::ShowVisitInfo(){
+    std::size_t vertex_num = adj_.size();
     for(unsigned i = 0; i < vertex_num; ++i){
         std::cout << "vertex: " << i << '\t';
-        std::cout << "start time: " << visit_info_[i].start_time << '\t';
-        std::cout << "end time: " << visit_info_[i].end_time << '\t';
+        std::cout << "start time: " << node_list_[i].start_time_ << '\t';
+        std::cout << "end time: " << node_list_[i].end_time_ << '\t';
         std::cout << "visit color: ";
-        switch(visit_info_[i].color){
+        switch(node_list_[i].color_){
             case VisitColor::White:
                 std::cout << "White"; break;
             case VisitColor::Grey:
@@ -218,9 +277,9 @@ void Graph<T>::ShowVisitInfo(){
     }
 }
 
-template<typename T>
-void Graph<T>::ShowDebugInfo(){
-    std::size_t vertex_num = matrix_.size();
+template<typename V>
+void Graph<V>::ShowDebugInfo(){
+    std::size_t vertex_num = adj_.size();
     std::cout << "Graph vertex size: " << vertex_num << std::endl;
 
     std::cout << "Graph basic info:" << std::endl;
@@ -228,6 +287,36 @@ void Graph<T>::ShowDebugInfo(){
 
     std::cout << "Graph visit info:" << std::endl;
     ShowVisitInfo();
+}
+
+template<typename V>
+void Graph<V>::GraphvizView(std::string filename, bool dump_png, bool dump_svg){
+    // generate filename.gv
+    std::ofstream graphfile(filename + std::string(".gv"));
+    if(!graphfile.is_open()){
+        std::cout << "Can't create graph file\n";
+        exit(2);
+    }
+    graphfile << "digraph G {" << std::endl;
+    for(int vertex1 = 0; vertex1 < adj_.size(); ++vertex1){
+        for(auto e = adj_[vertex1].begin(); e != adj_[vertex1].end(); ++e){
+            int vertex2 = std::get<0>(*e);
+            graphfile << '\t' << std::to_string(vertex1) << " -> "
+                      << std::to_string(vertex2) << ';' << std::endl;
+        }
+    }
+    graphfile << '}';
+    graphfile.close();
+    std::string rm_gv_cmd = "rm " + filename + ".gv";
+    if(dump_png){
+        std::string dump_png_cmd = "dot -Tpng " + filename + ".gv -o " + filename +".png";
+        system(dump_png_cmd.c_str());
+    }
+    if(dump_svg){
+        std::string dump_svg_cmd = "dot -Tsvg " + filename + ".gv -o " + filename +".svg";
+        system(dump_svg_cmd.c_str());
+    }
+    //system(rm_gv_cmd.c_str());
 }
 
 } // namespace graph

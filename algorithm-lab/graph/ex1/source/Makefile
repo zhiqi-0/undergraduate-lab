@@ -11,3 +11,7 @@ graph: graph.h test.cc lzq.h
 clean:
 	rm -f datagen
 	rm -f graph
+	rm -f ../output/size*/*
+	rm -f ../output/*.gv
+	rm -f ../output/*.png
+	rm -f ../output/*.svg
