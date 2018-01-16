@@ -17,4 +17,9 @@
   * fft
   * matrix chain multiply
   * redblack tree (with size)
+  * graph (dfs, scc, johnson, dijkstra, bellman-ford)
   * sort(heap sort | quick sort | bubble sort | bucket sort | counting sort | merge sort | ...)
+
+* compilers lab
+  * Use LLVM toolchain to complete C1 language design
+  * Thank to Yu Zhang @USTC providing such a great lab program
