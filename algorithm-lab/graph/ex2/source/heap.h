@@ -8,6 +8,7 @@
 
 namespace heap{
 
+// User should provide operator < & operator == & operator = on type T
 template<typename T>
 class MinHeap{
  public:
@@ -19,12 +20,14 @@ class MinHeap{
     int SearchKey(T key);
     void ResetKey(T old_key, T new_key);
     void Show();
+    inline int getHeapSize() {return minheap_.size();}
     
  private:
     std::vector<T> minheap_;
     inline int Parent(int i) {return (i - 1) >> 1;}
     inline int Lchild(int i) {return (i << 1) + 1;}
     inline int Rchild(int i) {return (i << 1) + 2;}
+    void exchange(T& a, T& b) {auto tmp = a; a = b; b = tmp;}
     void MinHeapify(int i);
 };
 
@@ -43,7 +46,7 @@ void MinHeap<T>::MinHeapify(int i){
     if(Rchild(i) < minheap_.size() && minheap_[Rchild(i)] < minheap_[smallest])
         smallest = Rchild(i);
     if(smallest != i){
-        std::swap(minheap_[i], minheap_[smallest]);
+        exchange(minheap_[i], minheap_[smallest]);
         MinHeapify(smallest);
     }
 }
@@ -51,7 +54,7 @@ void MinHeap<T>::MinHeapify(int i){
 template<typename T>
 T MinHeap<T>::ExtractMin(){
     T res = getMin();
-    std::swap(minheap_[0], minheap_[minheap_.size() - 1]);
+    exchange(minheap_[0], minheap_[minheap_.size() - 1]);
     minheap_.pop_back();
     MinHeapify(0);
     return res;
@@ -62,7 +65,7 @@ void MinHeap<T>::Insert(T key){
     minheap_.push_back(key);
     int pos = minheap_.size() - 1;
     while(Parent(pos) >= 0 && minheap_[pos] < minheap_[Parent(pos)]){
-        std::swap(minheap_[pos], minheap_[Parent(pos)]);
+        exchange(minheap_[pos], minheap_[Parent(pos)]);
         pos = Parent(pos);
     }
 }
@@ -85,7 +88,7 @@ void MinHeap<T>::ResetKey(T old_key, T new_key){
     minheap_[pos] = new_key;
     if(new_key < old_key){
         while(Parent(pos) >= 0 && minheap_[pos] < minheap_[Parent(pos)]){
-            std::swap(minheap_[pos], minheap_[Parent(pos)]);
+            exchange(minheap_[pos], minheap_[Parent(pos)]);
             pos = Parent(pos);
         }
     }

@@ -8,6 +8,7 @@
 #include <tuple>
 #include <algorithm>
 #include "lzq.h"
+#include "heap.h"
 
 #ifndef LZQ_GRAPH_H_
 #define LZQ_GRAPH_H_
@@ -16,6 +17,9 @@ namespace graph{
 
 template<typename E>
 using Adj = std::vector<std::list<E> >;
+
+template<typename T>
+using TwoDArray = std::vector<std::vector<T> >;
 
 enum VisitColor{White = 0, Grey, Black};
 
@@ -39,7 +43,6 @@ class Graph{
     Adj<std::tuple<int, int> > adj_;
     std::vector<Vertex<V> > node_list_;
     void DfsVisit(int node, int& time, std::vector<int>& conn, Adj<std::tuple<int, int> >* p_adj = nullptr);
-    void DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn);
 
  public:
     // file initializer
@@ -53,8 +56,14 @@ class Graph{
     inline bool setEdgeWeight(int vertex1, int vertex2, int weight);
     inline int* findEdge(int vertex1, int vertex2);
 
-    std::vector<std::vector<int> > StrongConn();
+    // basic operate
     std::vector<std::vector<int> > Dfs();
+    std::tuple<bool, std::vector<int> > BellmanFord(int node);
+    std::tuple<bool, std::vector<int> > Dijsktra(int node);
+    std::tuple<TwoDArray<int>, std::vector<Adj<int> > > Johnson();
+    std::vector<std::vector<int> > StrongConn();
+    std::vector<std::list<int> > Path(int node);
+
     // output information
     void ShowGraphInfo();
     void ShowVisitInfo();
@@ -107,7 +116,8 @@ Graph<V>::Graph(std::string filename, char parser, std::size_t vertex_num, bool 
 template<typename V>
 void Graph<V>::VisitReset(){    // trouble
     for(int i = 0; i < node_list_.size(); ++i){
-        node_list_[i].start_time_ = node_list_[i].end_time_ = node_list_[i].parent_ = 0;
+        node_list_[i].start_time_ = node_list_[i].end_time_ = 0;
+        node_list_[i].parent_ = i;
     }
 }
 
@@ -167,18 +177,22 @@ void Graph<V>::DfsVisit(int node, int &visit_time, std::vector<int>& conn, Adj<s
     node_list_[node].end_time_ = visit_time;
 }
 
-/*template<typename V>
-void Graph<V>::DeEndDfsVisit(std::vector<std::vector<int> >& matrix, int node, std::vector<int>& strong_conn){
-    visit_info_[node].color = VisitColor::Grey;
-    for(int i = 0; i < matrix[node].size(); ++i){
-        if(matrix[node][i] != NoEdge &&
-           visit_info_[i].color == VisitColor::White){
-               strong_conn.push_back(i);
-               DeEndDfsVisit(matrix, i, strong_conn);
+template<typename V>
+std::vector<std::vector<int> > Graph<V>::Dfs(){
+    ColorReset(); VisitReset();
+    std::vector<std::vector<int> > conn;
+    int visit_time = 0;
+    for(int i = 0; i < node_list_.size(); ++i){
+        if(node_list_[i].color_ == VisitColor::White){
+            node_list_[i].parent_ = -1;
+            std::vector<int> slice;
+            DfsVisit(i, visit_time, slice);
+            conn.push_back(slice);
         }
     }
-    visit_info_[node].color = VisitColor::Black;
-}*/
+    return conn;
+}
+
 
 template<typename V>
 std::vector<std::vector<int> > Graph<V>::StrongConn(){
@@ -195,8 +209,6 @@ std::vector<std::vector<int> > Graph<V>::StrongConn(){
         }
     }
 
-    //ShowDebugInfo();
-
     std::vector<std::vector<int> > res;
     std::vector<std::tuple<int, int> > visit_order;
     for(int i = 0; i < node_size; ++i)
@@ -209,7 +221,6 @@ std::vector<std::vector<int> > Graph<V>::StrongConn(){
     for(int i = 0; i < visit_order.size(); ++i){
         int node = std::get<0>(visit_order[i]);
         if(node_list_[node].color_ == VisitColor::White){
-            //std::cout << "Visit Node: " << node << std::endl;
             std::vector<int> slice;
             DfsVisit(node, visit_time, slice, &t_adj);
             res.push_back(slice);
@@ -219,18 +230,159 @@ std::vector<std::vector<int> > Graph<V>::StrongConn(){
 }
 
 template<typename V>
-std::vector<std::vector<int> > Graph<V>::Dfs(){
-    ColorReset(); VisitReset();
-    std::vector<std::vector<int> > conn;
-    int visit_time = 0;
-    for(int i = 0; i < node_list_.size(); ++i){
-        if(node_list_[i].color_ == VisitColor::White){
-            std::vector<int> slice;
-            DfsVisit(i, visit_time, slice);
-            conn.push_back(slice);
+std::tuple<bool, std::vector<int> > Graph<V>::BellmanFord(int node){
+    int node_size = node_list_.size();
+    VisitReset();
+    std::vector<int> shortest_path(node_size, INT_MAX);
+    shortest_path[node] = 0;
+    for(int times = 0; times < node_size - 1; ++times){
+        for(int u = 0; u < node_size; ++u){
+            if(shortest_path[u] == INT_MAX) continue;
+            for(auto e = adj_[u].begin(); e != adj_[u].end(); ++e){
+                int v = std::get<0>(*e);
+                int path_to_v = shortest_path[u] + std::get<1>(*e);       // v.d = u.d + e(u,v)
+                if(path_to_v < shortest_path[v]){
+                    shortest_path[v] = path_to_v;
+                    node_list_[v].parent_ = u;
+                }
+            }
         }
     }
-    return conn;
+    for(int u = 0; u < node_size; ++u){
+        if(shortest_path[u] == INT_MAX) continue;
+        for(auto e = adj_[u].begin(); e != adj_[u].end(); ++e){
+            int v = std::get<0>(*e);
+            int weight = std::get<1>(*e);
+            int path_to_v = shortest_path[u] + weight;       // v.d = u.d + e(u,v)
+            if(path_to_v < shortest_path[v]){
+                return std::make_tuple(false, shortest_path);
+            }
+        }
+    }
+    return std::make_tuple(true, shortest_path);
+}
+
+template<typename V>
+std::tuple<bool, std::vector<int> > Graph<V>::Dijsktra(int node){
+    int node_size = node_list_.size();
+    VisitReset();
+    struct VertexDis{
+        int id;
+        int d;
+        VertexDis(int order, int distance = INT_MAX): id(order), d(distance) {}
+        bool operator<(const VertexDis& rhs) {return d < rhs.d;}
+        bool operator==(const VertexDis& rhs) {return id == rhs.id && d == rhs.d;}
+        VertexDis& operator=(VertexDis& rhs) {id = rhs.id; d = rhs.d; return *this;}
+    };
+
+    std::vector<VertexDis> node_info;
+    std::vector<int> shortest_path(node_size, INT_MAX);
+    shortest_path[node] = 0;
+    for(int i = 0; i < node_size; ++i){
+        if(i != node)
+            node_info.push_back(VertexDis(i));
+        else
+            node_info.push_back(VertexDis(node, 0));
+    }
+    
+    heap::MinHeap<VertexDis> minheap(node_info);
+    while(minheap.getHeapSize()){
+        auto u = minheap.ExtractMin();
+        if(u.d == INT_MAX) break;
+        for(auto e = adj_[u.id].begin(); e != adj_[u.id].end(); ++e){
+            int v = std::get<0>(*e);
+            if(std::get<1>(*e) < 0)
+                return std::make_tuple(false, shortest_path);
+            int path_to_v = u.d + std::get<1>(*e);  // path_to_v = u.d + e(u, v)
+            
+            if(path_to_v < shortest_path[v]){
+                //std::cout << v << ':' << u.id << std::endl;
+                minheap.ResetKey(VertexDis(v, shortest_path[v]), VertexDis(v,path_to_v));
+                shortest_path[v] = path_to_v;
+                node_list_[v].parent_ = u.id;
+            }
+        }
+    }
+    return std::make_tuple(true, shortest_path);
+}
+
+template<typename V>
+std::vector<std::list<int> > Graph<V>::Path(int node){
+    //for(auto e : node_list_)
+      //  std::cout << e.parent_ << "\t";
+    int node_size = node_list_.size();
+    std::vector<std::list<int> > path;
+    for(int u = 0; u < node_list_.size(); ++u){
+        //std::cout << "cal: " << u << std::endl;
+        int p = node_list_[u].parent_;
+        std::list<int> u_path;
+        while(node_list_[p].parent_ != p){
+            u_path.push_front(p);
+            p = node_list_[p].parent_;
+        }
+        u_path.push_front(p);
+        u_path.push_back(u);
+        path.push_back(u_path);
+    }
+    //std::cout << "ok\n";
+    return path;
+}
+
+template<typename V>
+std::tuple<TwoDArray<int>, std::vector<Adj<int> > > Graph<V>::Johnson(){
+    // insert a new node s
+    int node_size = node_list_.size();
+    node_list_.push_back(Vertex<int>(node_size));
+    ++node_size;
+    std::list<std::tuple<int, int> > new_v;
+    for(int i = 0; i < node_size - 1; ++i)
+        new_v.push_back(std::make_tuple(i, 0));
+    adj_.push_back(new_v);
+
+    // BellmanFord alg
+    auto bellman = BellmanFord(node_size - 1);
+    if(std::get<0>(bellman) == false){
+        std::cout << "exist negative circle.\n";
+        exit(-1);
+    }
+    // reset weight
+    auto bres = std::get<1>(bellman);
+    for(int u = 0; u < node_size; ++u){
+        for(auto e = adj_[u].begin(); e != adj_[u].end(); ++e){
+            int v = std::get<0>(*e);
+            std::get<1>(*e) = std::get<1>(*e) + bres[u] - bres[v];
+        }
+    }
+    // run dijsktra for node_size times
+    std::vector<std::vector<int> > res;
+    std::vector<Adj<int> > all_path;
+    for(int node = 0; node < node_size - 1; ++node){
+        auto dij = Dijsktra(node);
+        // get path
+        auto path = Path(node);
+        path.pop_back();
+        all_path.push_back(path);
+        std::get<1>(dij).pop_back();
+        res.push_back(std::get<1>(dij));
+    }
+    // update node distance
+    --node_size;
+    for(int s = 0; s < node_size; ++s){
+        for(int u = 0; u < node_size; ++u){
+            res[s][u] += bres[u] - bres[s];
+        }
+    }
+    // recover original graph
+    node_list_.pop_back();
+    adj_.pop_back();
+    for(int u = 0; u < node_size; ++u){
+        for(auto e = adj_[u].begin(); e != adj_[u].end(); ++e){
+            int v = std::get<0>(*e);
+            std::get<1>(*e) = std::get<1>(*e) + bres[v] - bres[u];
+        }
+    }
+
+    return std::make_tuple(res, all_path);
 }
 
 template<typename V>
@@ -302,7 +454,8 @@ void Graph<V>::GraphvizView(std::string filename, bool dump_png, bool dump_svg){
         for(auto e = adj_[vertex1].begin(); e != adj_[vertex1].end(); ++e){
             int vertex2 = std::get<0>(*e);
             graphfile << '\t' << std::to_string(vertex1) << " -> "
-                      << std::to_string(vertex2) << ';' << std::endl;
+                      << std::to_string(vertex2)
+                      << " [label=\"" << std::to_string(std::get<1>(*e)) << "\"];\n";
         }
     }
     graphfile << '}';
@@ -316,7 +469,7 @@ void Graph<V>::GraphvizView(std::string filename, bool dump_png, bool dump_svg){
         std::string dump_svg_cmd = "dot -Tsvg " + filename + ".gv -o " + filename +".svg";
         system(dump_svg_cmd.c_str());
     }
-    //system(rm_gv_cmd.c_str());
+    system(rm_gv_cmd.c_str());
 }
 
 } // namespace graph

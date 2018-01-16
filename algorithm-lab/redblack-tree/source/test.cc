@@ -11,7 +11,7 @@ int main(){
     std::vector<int> key_array(&array[0], &array[10]);
     auto rng = std::default_random_engine((unsigned)time(NULL));
     /************* test for insert ************/
-    for(int i = 0; i < 5; ++i){
+    for(int i = 0; i < 4; ++i){
         std::shuffle(std::begin(key_array), std::end(key_array), rng);
         std::cerr << "Insert key array: ";
         for(auto e : key_array){
@@ -19,6 +19,7 @@ int main(){
         }
         std::cerr << std::endl;
         RedBlackTree<int> rbtree(key_array);
+        std::cout << "Initial RB Tree:" << std::endl;
         rbtree.print();
         std::shuffle(std::begin(key_array), std::end(key_array), rng);
         std::cerr << "Delete key: ";
