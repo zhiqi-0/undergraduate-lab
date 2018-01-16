@@ -1,0 +1,5 @@
+lli fib.ll
+echo $? 
+c++ `llvm-config --cxxflags --ldflags --system-libs --libs` gen_fib.cpp -o gen_fib
+./gen_fib
+rm gen_fib

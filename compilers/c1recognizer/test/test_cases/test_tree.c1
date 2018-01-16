@@ -1,0 +1,19 @@
+int a;
+const i = 1;
+const int array[3] = {1,2,3};
+int sb[6];
+int sd[] = {1,2,3,4};
+int ssb[3] = {1,2,3};
+void main(){
+    int s = 5;
+    if(i == 2){
+        int k = 3;
+    }
+    else
+        k = 10;
+    while(s < 10){
+        s = s + 1;
+        if(s == 10)
+            s = s - 1;
+    }
+}

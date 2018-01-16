@@ -1,0 +1,33 @@
+/* Test For C1Lexer
+ * Author Zhiqilin
+ * Last Update Time 17/9/2017
+ */
+void SimpleCal(){
+    int i /* test */= 1;
+    /* I write 
+     * blind 
+     * **ly
+     */
+    int j = i;
+    if(j!=i)
+        j = i + 1;
+    // this is a single\
+    while loop
+    int _hll = 0x12;
+    /**/
+}
+
+void SimpleCal(int i, int j){
+    i /* test */= 1;
+    /* I write 
+     * blind 
+     * **ly
+     */
+    j = i;
+    if(j!=i)
+        j = i + 1;
+}
+
+int i = 1;//
+int j;
+

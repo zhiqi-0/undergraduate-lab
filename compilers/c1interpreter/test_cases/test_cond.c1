@@ -1,0 +1,61 @@
+void main(){
+    int a = 1;
+    // ====================== test while ======================
+    // output: 1 2 3 4
+    while(a < 5){
+        output_var = a;
+        output();
+        a = a + 1;
+        int k = 3;
+        // output: 3\n
+        while(k > 2){
+            output_var = k;
+            output();
+            k = k - 1;
+        }
+        // no output
+        int s = 6;
+        while(s < 5){
+            int f = 10;
+            f = f + 20;
+            s = s + 1;
+        }
+    }
+    // output: 5
+    while(a < 7){
+        output_var = a;
+        a = a + 2;
+        output();
+    }
+    // ======================== test if ========================
+    // now a = 5
+    // output: 3
+    if(a < 10){
+        output_var = 1;
+        output();
+    }
+    // output: 2
+    if(a > 10){
+        output_var = -1;
+        output();
+    }
+    else{
+        output_var = 2;
+        output();
+    }
+    // output: 3
+    if(a < 10){
+        if(a > 3){
+            output_var = 3;
+            output();
+        }
+        else{
+            output_var = -1;
+            output();
+        }
+    }
+    else{
+        output_var = -1;
+        output();
+    }
+}

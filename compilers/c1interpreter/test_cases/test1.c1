@@ -1,0 +1,147 @@
+// ===================== test global variable & array =====================
+int g_0 = 1;
+const int g_1 = 2;
+// need test 0 case
+int g_2[1 + 2] = {3 , 4, 5};
+const int g_3[4] = {6, 7, 8, 9};
+int k[0];
+// ===================== test function call ========================
+void call(){
+    output_var = g_0; output();
+    output_var = g_1; output();
+    int i = 0;
+    while(i < 3){
+        output_var = g_2[i]; output();
+        i = i + 1;
+    }
+    i = 0;
+    int g_len = 4;
+    while(i < g_len){
+        output_var = g_3[i]; output();
+        i = i + 1;
+    }
+}
+void main(){
+    call();
+    // ====================== test local variable & array ====================
+    int l_0;
+    l_0 = 10;
+    const int l_1 = 11;
+    int l_2[3] = {12, l_1 + 2, 14};
+    int l_3[3] = {15};
+    const int l_4[3] = {18, 19, 20};
+    const int l_5[3] = {21};
+    output_var = l_0; output();
+    output_var = l_1; output();
+    int i = 0;
+    while(i < 3){
+        output_var = l_2[i]; output();
+        i = i + 1;
+    }
+    i = 0;
+    while(i < 3){
+        if(i == 0){
+            output_var = l_3[i]; output();
+        }
+        else{
+            if(i == 1){
+                if(l_3[i] == 0){
+                    output_var = 16; output();
+                }
+                else{
+                    output_var = -1; output();
+                }
+            }
+            else{
+                if(i == 2){
+                    if(l_3[i] == 0){
+                        output_var = 17; output();
+                    }
+                }
+            }  
+        }
+        i = i + 1;
+    }
+    i = 0;
+    while(i < 3){
+        output_var = l_4[i]; output();
+        i = i + 1;
+    }
+    i = 0;
+    while(i < 3){
+        if(i == 0){
+            output_var = l_5[i]; output();
+        }
+        else{
+            if(i == 1){
+                if(l_5[i] == 0){
+                    output_var = 22; output();
+                }
+                else{
+                    output_var = -1; output();
+                }
+            }
+            else{
+                if(i == 2){
+                    if(l_5[i] == 0){
+                        output_var = 23; output();
+                    }
+                }
+            }  
+        }
+        i = i + 1;
+    }
+    // ================== test basic calculation ====================
+    int l_6 = 4;
+    output_var = 4 * 3 + 12; output();
+    output_var = 4 / 4 * 25; output();
+    output_var = - 1 + 2 + 25; output();
+    // ================== test variable scope =======================
+    {
+        int i = 27;
+        output_var = i; output();
+        {
+            int j = i + 1;
+            output_var = j; output();
+            {
+                int g_2 = i + j - 27 + 1;
+                output_var = g_2; output();
+            }
+        }
+    }
+    // =================== test error report =======================
+    {   
+        // variable & array definition index error 
+        //int a[3] = {1,2,3};
+        //const int b[3] = {1,2,3};
+        //const int len = 4;
+        //int len_err = 4;
+        //int s[-1];
+        //int o[a[2]] = {1,2,3};
+        //int p[b[1]] = {1,2,3};
+        //int q[len] = {1,2,3};
+        //int r[len_err] = {1,2,3};
+        //const int test = len_err; output_var = test; output();
+
+        // const assignment error
+        //const int i = 2;
+        //i = 3;
+        //const int j[3] = {1,2,3};
+        //j[2] = 1;
+
+        // repeatly definition
+        //int i = 4;
+        //const int i = 3;
+        //int i[3];
+
+        // type check
+        //int i[3] = {2,3,4};
+        //int j[3] = {1,2,3};
+        //int k;
+        //k = i;
+        //i[j] = 4;
+        //i = 3;
+        //k[2] = 4;
+    }
+
+}

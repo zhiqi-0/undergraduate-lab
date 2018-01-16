@@ -1,0 +1,9 @@
+CPU：16(逻辑 CPU 数目) Intel(R) Xeon(R) CPU E5-2660 0 @ 2.20GHz
+内存大小：128G
+操作系统：Centos
+cmake目标：make
+cmake build type：Debug
+编译线程数：16
+编译耗时：17min
+内存占用峰值：43G
+遇到的问题及如何解决： 刚开始 make -j 直接吃完 128G 内存，后来乖了用 make -j16
