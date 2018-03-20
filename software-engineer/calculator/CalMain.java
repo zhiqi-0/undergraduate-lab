@@ -6,12 +6,14 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,18 +57,18 @@ public class CalMain extends Application{
     public void start(Stage primaryStage){
         // basic info for gui design
         final int defaultLen = 300;
-        final int defaultWid = 560;
+        final int defaultWid = 565;
         final int buttonRow = 5;
         final int buttonCol = 5;
 
-        VBox hbox = new VBox();
+        VBox vbox = new VBox();
         /* define input text */
         inputArea.setPrefSize(defaultLen, 120);
         inputArea.setPromptText("put your numbers here...");
-        hbox.getChildren().add(inputArea);
+        vbox.getChildren().add(inputArea);
         /* define output label */
         outputArea.setPrefSize(defaultLen, 120);
-        hbox.getChildren().add(outputArea);
+        vbox.getChildren().add(outputArea);
         /* define basic number layout */
         GridPane buttonGrid = new GridPane();
         // init grid
@@ -84,9 +86,17 @@ public class CalMain extends Application{
         // add buttons
         addDigitButton(buttonGrid, buttonRow - 1);
         addBasicOperation(buttonGrid, buttonRow - 1);
-        hbox.getChildren().add(buttonGrid);
+        vbox.getChildren().add(buttonGrid);
+
+        // add extend buttons
+        HBox hbox = new HBox();
+        Button extendButton = new Button("<");
+        extendButton.setPadding(new Insets(5));
+        extendButton.setPrefSize(5, 5);
+        hbox.getChildren().add(extendButton);
+        vbox.getChildren().add(hbox);
         /* create and show the scene */
-        Scene scene = new Scene(hbox, defaultLen, defaultWid, Color.WHITE);
+        Scene scene = new Scene(vbox, defaultLen, defaultWid, Color.WHITE);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Calculator - Regualr Mode");
         primaryStage.show();
