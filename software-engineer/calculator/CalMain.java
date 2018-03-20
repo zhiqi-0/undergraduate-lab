@@ -2,6 +2,8 @@
  * File Information: Main GUI for Calculator
  */
 
+import javax.lang.model.util.ElementScanner6;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -20,7 +22,7 @@ import javafx.event.EventHandler;
 
 public class CalMain extends Application{
 
-    public enum Mode {Regular, Matrix, Function;}
+    enum Mode {Regular, Matrix, Function;}
 
     Mode currentMode = Mode.Regular;
     double regularRes = 0;
@@ -47,7 +49,11 @@ public class CalMain extends Application{
         new Button("."),    //13
         new Button("EE")
     };
-
+    // subwindows define
+    Stage rSubWindow = new Stage();
+    Stage mSubWindow = new Stage();
+    Stage fSubWindow = new Stage();
+    boolean[] subWindowState = new boolean[]{false, false, false};
 
     public static void main(String[] args){
         launch(args);
@@ -95,7 +101,32 @@ public class CalMain extends Application{
         extendButton.setPrefSize(5, 5);
         hbox.getChildren().add(extendButton);
         vbox.getChildren().add(hbox);
-        /* create and show the scene */
+        extendButton.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                switch(currentMode){
+                    case Regular:
+                    if(subWindowState[0] == false){
+                        rSubWindow.show();
+                        subWindowState[0] = true;
+                    }
+                    else{
+                        rSubWindow.close();
+                        subWindowState[0] = false;
+                    }
+                    break;
+                    case Matrix:
+                    break;
+                    case Function:
+                    break;
+                }
+            }
+        });
+        /* boot all subwindows */
+        regularMode();
+        matrixMode();
+        functionMode();
+        /* create and show the main scene */
         Scene scene = new Scene(vbox, defaultLen, defaultWid, Color.WHITE);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Calculator - Regualr Mode");
@@ -178,6 +209,43 @@ public class CalMain extends Application{
         gridPane.getChildren().add(button);
     }
 
-    /* Button Click Event */
+    public void regularMode(){
+        // 5*2 operations
+        final int columnNum = 2;
+        final int rowNum = 5;
+        GridPane buttonGrid = new GridPane();
+        Button[] opButtons = new Button[]{
+            new Button("^"), new Button("sqrt"),
+            new Button("exp"), new Button("ln"),
+            new Button("log2"),new Button("!"),
+            new Button("cos"), new Button("sin"),
+            new Button("cos-1"), new Button("sin-1")
+        };
+        buttonGrid.setPadding(Insets.EMPTY);
+        ColumnConstraints[] columnSet = new ColumnConstraints[columnNum];
+        for(int i = 0; i < columnNum; ++i){
+            columnSet[i] = new ColumnConstraints(60);
+            buttonGrid.getColumnConstraints().add(columnSet[i]);
+        }
+        RowConstraints[] rowSet = new RowConstraints[rowNum];
+        for(int i = 0; i < rowNum; ++i){
+            rowSet[i] = new RowConstraints(60);
+            buttonGrid.getRowConstraints().add(rowSet[i]);
+        }
+        for(int i = 0; i < opButtons.length; ++i){
+            addButton(buttonGrid, opButtons[i], i / 2, i % 2);
+        }
+        Scene scene = new Scene(buttonGrid, 60 * columnNum, 60 * rowNum);
+        rSubWindow.setTitle("Regualr");
+        rSubWindow.setScene(scene);
+    }
+
+    public void matrixMode(){
+
+    }
+
+    public void functionMode(){
+
+    }
     
 }
