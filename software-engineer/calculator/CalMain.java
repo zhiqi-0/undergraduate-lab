@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -50,10 +52,10 @@ public class CalMain extends Application{
         new Button("EE")
     };
     // subwindows define
-    Stage rSubWindow = new Stage();
-    Stage mSubWindow = new Stage();
-    Stage fSubWindow = new Stage();
-    boolean[] subWindowState = new boolean[]{false, false, false};
+    Stage rSubStage = new Stage();
+    Stage mSubStage = new Stage();
+    Stage fSubStage = new Stage();
+    boolean[] subStageState = new boolean[]{false, false, false};
 
     public static void main(String[] args){
         launch(args);
@@ -62,7 +64,7 @@ public class CalMain extends Application{
     @Override
     public void start(Stage primaryStage){
         // basic info for gui design
-        final int defaultLen = 300;
+        final int defaultLen = 300; //300
         final int defaultWid = 565;
         final int buttonRow = 5;
         final int buttonCol = 5;
@@ -106,13 +108,15 @@ public class CalMain extends Application{
             public void handle(ActionEvent event){
                 switch(currentMode){
                     case Regular:
-                    if(subWindowState[0] == false){
-                        rSubWindow.show();
-                        subWindowState[0] = true;
+                    if(subStageState[0] == false){
+                        subStageState[0] = true;
+                        rSubStage.setX(primaryStage.getX() - 120);
+                        rSubStage.setY(primaryStage.getY() + 260);
+                        rSubStage.show();
                     }
                     else{
-                        rSubWindow.close();
-                        subWindowState[0] = false;
+                        subStageState[0] = false;
+                        rSubStage.close();
                     }
                     break;
                     case Matrix:
@@ -122,14 +126,15 @@ public class CalMain extends Application{
                 }
             }
         });
-        /* boot all subwindows */
+        /* boot all SubPanes */
         regularMode();
         matrixMode();
         functionMode();
         /* create and show the main scene */
         Scene scene = new Scene(vbox, defaultLen, defaultWid, Color.WHITE);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Calculator - Regualr Mode");
+        primaryStage.setTitle("Calculator");
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -213,7 +218,6 @@ public class CalMain extends Application{
         // 5*2 operations
         final int columnNum = 2;
         final int rowNum = 5;
-        GridPane buttonGrid = new GridPane();
         Button[] opButtons = new Button[]{
             new Button("^"), new Button("sqrt"),
             new Button("exp"), new Button("ln"),
@@ -221,6 +225,7 @@ public class CalMain extends Application{
             new Button("cos"), new Button("sin"),
             new Button("cos-1"), new Button("sin-1")
         };
+        GridPane buttonGrid = new GridPane();
         buttonGrid.setPadding(Insets.EMPTY);
         ColumnConstraints[] columnSet = new ColumnConstraints[columnNum];
         for(int i = 0; i < columnNum; ++i){
@@ -235,9 +240,10 @@ public class CalMain extends Application{
         for(int i = 0; i < opButtons.length; ++i){
             addButton(buttonGrid, opButtons[i], i / 2, i % 2);
         }
-        Scene scene = new Scene(buttonGrid, 60 * columnNum, 60 * rowNum);
-        rSubWindow.setTitle("Regualr");
-        rSubWindow.setScene(scene);
+        Scene scene = new Scene(buttonGrid, columnNum * 60, rowNum * 60);
+        rSubStage.setScene(scene);
+        rSubStage.setTitle("Regular");
+        rSubStage.initStyle(StageStyle.TRANSPARENT);
     }
 
     public void matrixMode(){
