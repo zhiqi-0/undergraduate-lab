@@ -19,8 +19,14 @@ class CalExpression{
     double rExpParse(String exp){
         double number = 0;
         double lhs = 0, rhs = 0;
+        // preprocessing expression: +0 before '-'
+        System.out.println("Before Preprocess: " + exp);
+        exp = new StringBuilder(exp).reverse().toString();
+        exp = exp.replaceAll("-(?=\\D|$)", "-0");
+        exp = new StringBuilder(exp).reverse().toString();
+        System.out.println("After Preprocess: " + exp);
         // parse whole string expression
-        expPattern = Pattern.compile("\\d+(\\.\\d+)?|\\+|-|\\*|/|\\(|\\)|\\^|sqrt|π|M");
+        expPattern = Pattern.compile("\\d+(\\.\\d+)?|\\+|-|\\*|/|\\(|\\)|\\^|sqrt|π|e|cos|sin|arccos|arcsin|log2|ln|!|M");
         match = expPattern.matcher(exp);
         // scan whole parsed expression
         while(match.find()){
@@ -73,16 +79,19 @@ class CalExpression{
     // calculate then put back to numberStack
     void stepCal(){
         double lhs =0, rhs = 0;
+        Operator op = Operator.UNKNOWN;
         try{
-            Operator op = opStack.pop();
+            op = opStack.pop();
             int opNum = op.getNum();
             rhs = numberStack.pop();
+            lhs = 0;
             if(opNum == 2)
                 lhs = numberStack.pop();
+        }catch(EmptyStackException e){
+            System.out.println("Final Pop: Illegal pop");
+        }finally{
             rResult = op.compute(lhs, rhs);
             numberStack.push(rResult);
-        } catch(EmptyStackException e){
-            System.out.println("Final Pop: Illegal pop");
         }
     }
 
@@ -93,7 +102,8 @@ class CalExpression{
     public static void main(String[] args){
         CalExpression cal = new CalExpression();
         cal.setM(5);
-        System.out.println(cal.rExpParse("1+4*M/sqrt(4)-2"));
+        //System.out.println(cal.rExpParse("1+4*M/sqrt(64-64*0-(1+0)*64+4)+(log2(4))!"));
+        System.out.println(cal.rExpParse("-2+3-(-2)"));
         return;
     }
 
@@ -150,10 +160,62 @@ enum Operator {
             return Math.sqrt(rhs);
         }
     },
+    COS("cos", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.cos(rhs);
+        }
+    },
+    SIN("sin", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.sin(rhs);
+        }
+    },
+    ARCCOS("arccos", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.acos(rhs);
+        }
+    },
+    ARCSIN("arcsin", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.asin(rhs);
+        }
+    },
+    LOG("log2", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.log(rhs) / Math.log(2);
+        }
+    },
+    LN("ln", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.log(rhs);
+        }
+    },
+    M("!", 3, 1){
+        @Override
+        public double compute(double lhs, double rhs){
+            double res = 1;
+            for(int i = 2; i <= Math.floor(rhs); ++i){
+                res = res * i;
+            }
+            return res;
+        }
+    },
     PI("π", 4, 0){
         @Override
         public double compute(double lhs, double rhs){
-            throw new UnsupportedOperationException();
+            return Math.PI;
+        }
+    },
+    E("e", 4, 0){
+        @Override
+        public double compute(double lhs, double rhs){
+            return Math.E;
         }
     },
     UNKNOWN("", 0, 0){

@@ -234,7 +234,7 @@ public class CalMain extends Application{
             new Button("exp"), new Button("ln"),
             new Button("log2"),new Button("!"),
             new Button("cos"), new Button("sin"),
-            new Button("cos-1"), new Button("sin-1")
+            new Button("arccos"), new Button("arcsin")
         };
         GridPane buttonGrid = new GridPane();
         buttonGrid.setPadding(Insets.EMPTY);
