@@ -13,7 +13,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
-import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
