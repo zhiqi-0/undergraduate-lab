@@ -1,9 +1,6 @@
 /*
  * File Information: Main GUI for Calculator
  */
-
-import javax.lang.model.util.ElementScanner6;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,8 +16,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
 
 public class CalMain extends Application{
 
@@ -135,7 +134,20 @@ public class CalMain extends Application{
         primaryStage.setScene(scene);
         primaryStage.setTitle("Calculator");
         primaryStage.setResizable(false);
+        // when close main GUI, close all sub windows
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent arg0){
+                rSubStage.close();
+                mSubStage.close();
+                fSubStage.close();
+            }
+        });
         primaryStage.show();
+    }
+
+    public void stageLeftBind(Stage mainStage, Stage subStage, double offset){
+        
     }
 
     public void addDigitButton(GridPane gridPane, int buttonMaxRowIndex){
