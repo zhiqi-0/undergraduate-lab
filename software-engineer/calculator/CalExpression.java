@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.EmptyStackException;
 
 
-class CalExpression{
+public class CalExpression{
     
     private double rResult = 0;
     private double mValue = 0;
@@ -16,15 +16,17 @@ class CalExpression{
     private Stack<Double> numberStack = new Stack<>();
     private Stack<Operator> opStack = new Stack<>();
 
-    double rExpParse(String exp){
+    double rExpValue(String exp){
         double number = 0;
         double lhs = 0, rhs = 0;
-        // preprocessing expression: +0 before '-'
+        // preprocessing expression: replace exp and deal with '-'
         System.out.println("Before Preprocess: " + exp);
+        exp = exp.replaceAll("exp", "e^");
         exp = new StringBuilder(exp).reverse().toString();
         exp = exp.replaceAll("-(?=\\D|$)", "-0");
         exp = new StringBuilder(exp).reverse().toString();
         System.out.println("After Preprocess: " + exp);
+    
         // parse whole string expression
         expPattern = Pattern.compile("\\d+(\\.\\d+)?|\\+|-|\\*|/|\\(|\\)|\\^|sqrt|π|e|cos|sin|arccos|arcsin|log2|ln|!|M");
         match = expPattern.matcher(exp);
@@ -69,6 +71,9 @@ class CalExpression{
             }
         }
         // calculate remaining in the stack
+        if(opStack.isEmpty() && !numberStack.isEmpty()){
+            rResult = numberStack.pop();
+        }
         while(!opStack.isEmpty())
             stepCal();
         return rResult;
@@ -99,13 +104,13 @@ class CalExpression{
         this.mValue = M;
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         CalExpression cal = new CalExpression();
         cal.setM(5);
         //System.out.println(cal.rExpParse("1+4*M/sqrt(64-64*0-(1+0)*64+4)+(log2(4))!"));
         System.out.println(cal.rExpParse("-2+3-(-2)"));
         return;
-    }
+    }*/
 
 }
 

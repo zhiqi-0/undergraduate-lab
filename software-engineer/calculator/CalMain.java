@@ -19,20 +19,18 @@ import javafx.stage.WindowEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-
 public class CalMain extends Application{
 
     enum Mode {Regular, Matrix, Function;}
 
     Mode currentMode = Mode.Regular;
-    double regularRes = 0;
-    double regularM = 0;
+    CalExpression rCal = new CalExpression();
 
     // basic items
     TextArea inputArea = new TextArea();            // input area
     TextArea outputArea = new TextArea();              // result area
     Button[] digitButtons = new Button[10];         // digit buttion 0-9
-    Button[] operatorButtons = new Button[]{        // 14 operators
+    Button[] opButtons = new Button[]{        // 14 operators
         new Button("DEL"),
         new Button("AC"),
         new Button("x"),
@@ -54,6 +52,7 @@ public class CalMain extends Application{
     Stage mSubStage = new Stage();
     Stage fSubStage = new Stage();
     boolean[] subStageState = new boolean[]{false, false, false};
+    int unMatchParen = 0;
 
     public static void main(String[] args){
         launch(args);
@@ -74,6 +73,7 @@ public class CalMain extends Application{
         vbox.getChildren().add(inputArea);
         /* define output label */
         outputArea.setPrefSize(defaultLen, 120);
+        outputArea.setEditable(false);
         vbox.getChildren().add(outputArea);
         /* define basic number layout */
         GridPane buttonGrid = new GridPane();
@@ -145,10 +145,6 @@ public class CalMain extends Application{
         primaryStage.show();
     }
 
-    public void stageLeftBind(Stage mainStage, Stage subStage, double offset){
-        
-    }
-
     public void addDigitButton(GridPane gridPane, int buttonMaxRowIndex){
         for(int i = 0; i < 10; ++i){
             int colPos = (i - 1) % 3;
@@ -157,10 +153,16 @@ public class CalMain extends Application{
             int rowPos = buttonMaxRowIndex - (i + 2) / 3;
             digitButtons[i] = new Button(Integer.toString(i));
             final int index = i;
+            // add click event
             digitButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
                     inputArea.appendText(digitButtons[index].getText());
+                    if(unMatchParen == 0){
+                        String calExp = inputArea.getText();
+                        double res = rCal.rExpValue(calExp);
+                        outputArea.setText(Double.toString(res));
+                    }
                 }
             });
             addButton(gridPane, digitButtons[i], rowPos, colPos);
@@ -169,17 +171,17 @@ public class CalMain extends Application{
 
     public void addBasicOperation(GridPane gridPane, int buttonMaxRowIndex){
         for(int i = 0; i < 8; ++i){
-            addButton(gridPane, operatorButtons[i], 1 + i / 2, 3 + i % 2);
+            addButton(gridPane, opButtons[i], 1 + i / 2, 3 + i % 2);
         }
         for(int i = 0; i < 5; ++i){
-            addButton(gridPane, operatorButtons[i + 8], 0, i);
+            addButton(gridPane, opButtons[i + 8], 0, i);
         }
-        addButton(gridPane, operatorButtons[13], buttonMaxRowIndex, 1);
-        addButton(gridPane, operatorButtons[14], buttonMaxRowIndex, 2);
-        for(int i = 0; i < operatorButtons.length; ++i){
+        addButton(gridPane, opButtons[13], buttonMaxRowIndex, 1);
+        addButton(gridPane, opButtons[14], buttonMaxRowIndex, 2);
+        for(int i = 0; i < opButtons.length; ++i){
             switch(i){
                 case 0:     //DEL
-                operatorButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(ActionEvent event){
                         String textContent = inputArea.getText();
@@ -188,7 +190,7 @@ public class CalMain extends Application{
                 });
                 break;
                 case 1:     //AC
-                operatorButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(ActionEvent event){
                         inputArea.setText("");
@@ -196,21 +198,66 @@ public class CalMain extends Application{
                     }
                 });
                 break;
-                case 12:   //M+
-                operatorButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                case 2:     //x
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(ActionEvent event){
-                        // need to be completed
-                        regularM = regularRes;
+                        inputArea.appendText("*");
+                    }
+                });
+                break;
+                case 7:     //=
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        String calExp = inputArea.getText();
+                        double res = rCal.rExpValue(calExp);
+                        outputArea.setText(Double.toString(res));
+                    }
+                });
+                break;
+                case 9:     //(
+                final int lParenIndex = i;
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        inputArea.appendText(opButtons[lParenIndex].getText());
+                        unMatchParen++;
+                    }
+                });
+                break;
+                case 10:     //)
+                final int rParenIndex = i;
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        inputArea.appendText(opButtons[rParenIndex].getText());
+                        unMatchParen--;
+                        if(unMatchParen == 0){
+                            String calExp = inputArea.getText();
+                            double res = rCal.rExpValue(calExp);
+                            outputArea.setText(Double.toString(res));
+                        }
+                    }
+                });
+                break;
+                case 12:   //M+
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event){
+                        String calExp = inputArea.getText();
+                        double res = rCal.rExpValue(calExp);
+                        outputArea.setText(Double.toString(res));
+                        rCal.setM(res);
                     }
                 });
                 break;
                 default:
                 final int index = i;
-                operatorButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(ActionEvent event){
-                        inputArea.appendText(operatorButtons[index].getText());
+                        inputArea.appendText(opButtons[index].getText());
                     }
                 });
             }
@@ -255,6 +302,17 @@ public class CalMain extends Application{
         rSubStage.setScene(scene);
         rSubStage.setTitle("Regular");
         rSubStage.initStyle(StageStyle.TRANSPARENT);
+
+        /* add button function */
+        for(int i = 0; i < opButtons.length; ++i){
+            final int index = i;
+            opButtons[i].setOnAction(new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent event){
+                    inputArea.appendText(opButtons[index].getText());
+                }
+            });
+        }
     }
 
     public void matrixMode(){
