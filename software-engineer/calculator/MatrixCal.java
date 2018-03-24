@@ -148,7 +148,6 @@ public class MatrixCal{
 }
 
 enum MOperator{
-
     PLUS("+", 2){
         @Override
         public Matrix compute(Matrix a, Matrix b){
