@@ -1,13 +1,11 @@
-import java.math.BigDecimal;
 import java.util.Stack;
 import java.lang.String;
 import java.lang.Double;
 import java.util.regex.*;
-import java.util.HashMap;
 import java.util.EmptyStackException;
 
 
-public class CalExpression{
+public class RegularCal{
     
     private double rResult = 0;
     private double mValue = 0;
@@ -18,7 +16,7 @@ public class CalExpression{
 
     double rExpValue(String exp){
         double number = 0;
-        double lhs = 0, rhs = 0;
+        numberStack.clear(); opStack.clear();
         // preprocessing expression: replace exp and deal with '-'
         System.out.println("Before Preprocess: " + exp);
         exp = exp.replaceAll("exp", "e^");
@@ -26,7 +24,6 @@ public class CalExpression{
         exp = exp.replaceAll("-(?=\\D|$)", "-0");
         exp = new StringBuilder(exp).reverse().toString();
         System.out.println("After Preprocess: " + exp);
-    
         // parse whole string expression
         expPattern = Pattern.compile("\\d+(\\.\\d+)?|\\+|-|\\*|/|\\(|\\)|\\^|sqrt|π|e|cos|sin|arccos|arcsin|log2|ln|!|M");
         match = expPattern.matcher(exp);
@@ -104,6 +101,7 @@ public class CalExpression{
         this.mValue = M;
     }
 
+    // for test
     /*public static void main(String[] args){
         CalExpression cal = new CalExpression();
         cal.setM(5);
