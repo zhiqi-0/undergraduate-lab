@@ -55,7 +55,8 @@ public class CalMain extends Application{
     protected final Stage rSubStage = new Stage();
     protected final Stage mSubStage = new Stage();
     protected final Stage fSubStage = new Stage();
-    protected boolean[] subStageState = {false, false, false, false};
+    protected final Stage infoStage = new Stage();
+    protected boolean[] subStageState = {false, false, false, false, false};
     private int unMatchParen = 0;
     private boolean cleanFlag = false;
 
@@ -138,6 +139,7 @@ public class CalMain extends Application{
         });
         // add useless button
         Button rightExtendButton = new Button(">");
+        introStage(rightExtendButton);
         leftExtendButton.setPrefSize(60, 10);
         leftExtendButton.setPadding(Insets.EMPTY);
         modeButton.setPadding(Insets.EMPTY);
@@ -171,6 +173,7 @@ public class CalMain extends Application{
                 rSubStage.close();
                 mSubStage.close();
                 fSubStage.close();
+                infoStage.close();
             }
         });
         primaryStage.show();
@@ -200,6 +203,7 @@ public class CalMain extends Application{
                 mSubStage.close();
                 fSubStage.close();
                 modeSubStage.close();
+                outputArea.setPromptText("You can use both keyboard and digital button for input");
                 primaryStage.setTitle("Calculator - Regular");
             }
         });
@@ -210,6 +214,7 @@ public class CalMain extends Application{
                 rSubStage.close();
                 fSubStage.close();
                 modeSubStage.close();
+                outputArea.clear();
                 primaryStage.setTitle("Calculator - Matrix");
             }
         });
@@ -319,6 +324,49 @@ public class CalMain extends Application{
 
     public void functionMode(){}
 
+    public void introStage(Button activeButton){
+        String regularInfo = "Introduction:\n1. Support all kinds of operators\nand any length of expressions."
+                           + "\n2. You can both use keyboard\nand click on the buttons for \ninput numbers"
+                           + "\n3. Left bottom corner offers you\nall kinds of operators";
+        String matrixInfo = "Introduction:\n1. Only support 1 operator and no\nmore than 2 operands per\ncalculating time"
+                           + "\n2. You must define a matrix using\nbutton A+ or B+ to save in\nA and B and later use this variables"
+                           + "\n3. For matrix define example:\n(matlab style)\n[[1,2,3],[4,5,6],[7,8,9]\n\tthen plus A+ of B+"
+                           + "\n4. For calculate functions:\nexamples:\n\ttransposeA, invB, A+B, A*B,\n\tA.*B, A./B,\n\tsolve(A,B)(for solving AX=B)";
+        String functionInfo = "Currently the calculator doesn't\nsupport function.";
+        TextArea info = new TextArea();
+        info.setPadding(Insets.EMPTY);
+        info.setPrefSize(230, 400);
+        info.setEditable(false);
+        GridPane textPane = new GridPane();
+        textPane.setPrefSize(230, 400);
+        textPane.getChildren().add(info);
+        Scene scene = new Scene(textPane);
+        infoStage.setScene(scene);
+        activeButton.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event){
+                String intro = "";
+                if(!subStageState[4]){
+                    switch(currentMode){
+                        case Regular: intro = regularInfo;
+                        break;
+                        case Matrix: intro = matrixInfo;
+                        break;
+                        case Function: intro = functionInfo;
+                        break;
+                    }
+                    info.setText(intro);
+                    subStageState[4] = true;
+                    infoStage.show();
+                }
+                else{
+                    infoStage.close();
+                    subStageState[4] = false;
+                }
+            }
+        });
+    }
+
     protected void setGridPane(GridPane gridPane, int columnNum, int rowNum,
                             int columnWidth, int rowHeiht){
         ColumnConstraints[] columnSet = new ColumnConstraints[columnNum];
@@ -382,6 +430,7 @@ public class CalMain extends Application{
                     @Override
                     public void handle(ActionEvent event){
                         String textContent = inputArea.getText();
+                        if(textContent.length() == 0) return;
                         inputArea.setText(textContent.substring(0, textContent.length() - 1));
                     }
                 });
