@@ -56,6 +56,7 @@ public class CalMain extends Application{
     protected final Stage mSubStage = new Stage();
     protected final Stage fSubStage = new Stage();
     protected final Stage infoStage = new Stage();
+    // rstage, mstage, fstage, modestage, infostage
     protected boolean[] subStageState = {false, false, false, false, false};
     private int unMatchParen = 0;
     private boolean cleanFlag = false;
@@ -203,6 +204,7 @@ public class CalMain extends Application{
                 mSubStage.close();
                 fSubStage.close();
                 modeSubStage.close();
+                subStageState[3] = false;
                 outputArea.setPromptText("You can use both keyboard and digital button for input");
                 primaryStage.setTitle("Calculator - Regular");
             }
@@ -214,6 +216,7 @@ public class CalMain extends Application{
                 rSubStage.close();
                 fSubStage.close();
                 modeSubStage.close();
+                subStageState[3] = false;
                 outputArea.clear();
                 primaryStage.setTitle("Calculator - Matrix");
             }
@@ -224,6 +227,7 @@ public class CalMain extends Application{
                 currentMode = Mode.Function;
                 rSubStage.close();
                 mSubStage.close();
+                subStageState[3] = false;
                 modeSubStage.close();
                 primaryStage.setTitle("Calculator - Funtion");
             }
@@ -336,10 +340,10 @@ public class CalMain extends Application{
         TextArea info = new TextArea();
         info.setWrapText(true);
         info.setPadding(Insets.EMPTY);
-        info.setPrefSize(230, 400);
+        info.setPrefSize(200, 350);
         info.setEditable(false);
         GridPane textPane = new GridPane();
-        textPane.setPrefSize(230, 400);
+        textPane.setPrefSize(200, 350);
         textPane.getChildren().add(info);
         Scene scene = new Scene(textPane);
         infoStage.setScene(scene);
