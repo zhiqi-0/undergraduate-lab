@@ -13,7 +13,7 @@
   * 实现归结原理对 L 命题演算的证明。
   * 具体可参见 mathematical-logic-lab/ 目录下的 MarkDown 文档
 
-* algorithm-lab
+* algorithm lab
   * fft
   * matrix chain multiply
   * redblack tree (with size)
@@ -21,5 +21,8 @@
   * sort(heap sort | quick sort | bubble sort | bucket sort | counting sort | merge sort | ...)
 
 * compilers lab
-  * Use LLVM toolchain to complete C1 language design
+  * Use LLVM to complete C1 language design
   * Thank to Yu Zhang @USTC providing such a great lab program
+
+* software engineering
+  * calculator design; (javafx)

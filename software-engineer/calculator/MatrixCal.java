@@ -47,12 +47,6 @@ public class MatrixCal{
                     array[i][j] = 0;
             }
         }
-        /*for(int i = 0; i < row; ++i){
-            for(int j = 0; j < col; ++j){
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.print("\n");
-        }*/
         if(matrixName.equals("A"))
             A = new Matrix(array, row, col);
         else if(matrixName.equals("B"))
@@ -60,7 +54,7 @@ public class MatrixCal{
     }
 
     public String calMatrix(String exp){
-        Pattern expPattern = Pattern.compile("A|B|inv|transpose|\\+|-|\\*|\\.\\*|\\./|det|rank");
+        Pattern expPattern = Pattern.compile("A|B|inv|transpose|\\+|-|\\*|\\.\\*|\\./|det|rank|solve");
         Matcher expMatcher = expPattern.matcher(exp);
         Stack<Matrix> mStack = new Stack<>();
         int numMatrix = 0, numOp = 0;
@@ -202,6 +196,13 @@ enum MOperator{
         @Override
         public Matrix compute(Matrix a, Matrix b){
             return b.transpose();
+        }
+    },
+    SOLVE("solve", 2){
+        // Solve A * X = B equation
+        @Override
+        public Matrix compute(Matrix a, Matrix b){
+            return a.solve(b);
         }
     },
     UNKNOWN("", 0){
