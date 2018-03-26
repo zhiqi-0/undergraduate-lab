@@ -325,15 +325,16 @@ public class CalMain extends Application{
     public void functionMode(){}
 
     public void introStage(Button activeButton){
-        String regularInfo = "Introduction:\n1. Support all kinds of operators\nand any length of expressions."
-                           + "\n2. You can both use keyboard\nand click on the buttons for \ninput numbers"
-                           + "\n3. Left bottom corner offers you\nall kinds of operators";
-        String matrixInfo = "Introduction:\n1. Only support 1 operator and no\nmore than 2 operands per\ncalculating time"
-                           + "\n2. You must define a matrix using\nbutton A+ or B+ to save in\nA and B and later use this variables"
+        String regularInfo = "Introduction:\n1. Support all kinds of operators and any length of expressions."
+                           + "\n2. You can both use keyboard and click on the buttons for input numbers"
+                           + "\n3. Left bottom corner offers you all kinds of operators";
+        String matrixInfo = "Introduction:\n1. Only support 1 operator and no more than 2 operands per calculating time"
+                           + "\n2. You must define a matrix using button A+ or B+ to save in A and B and later use this variables"
                            + "\n3. For matrix define example:\n(matlab style)\n[[1,2,3],[4,5,6],[7,8,9]\n\tthen plus A+ of B+"
-                           + "\n4. For calculate functions:\nexamples:\n\ttransposeA, invB, A+B, A*B,\n\tA.*B, A./B,\n\tsolve(A,B)(for solving AX=B)";
-        String functionInfo = "Currently the calculator doesn't\nsupport function.";
+                           + "\n4. For calculate functions: examples:\n\ttransposeA, invB, A+B, A*B,\n\tA.*B, A./B,\n\tsolve(A,B)(for solving AX=B)";
+        String functionInfo = "Currently the calculator doesn't support function.";
         TextArea info = new TextArea();
+        info.setWrapText(true);
         info.setPadding(Insets.EMPTY);
         info.setPrefSize(230, 400);
         info.setEditable(false);
