@@ -53,12 +53,14 @@ public class MatrixCal{
             B = new Matrix(array, row, col);
     }
 
-    public String calMatrix(String exp){
+    public String calMatrix(String exp) throws Exception{
         Pattern expPattern = Pattern.compile("A|B|inv|transpose|\\+|-|\\*|\\.\\*|\\./|det|rank|solve");
         Matcher expMatcher = expPattern.matcher(exp);
         Stack<Matrix> mStack = new Stack<>();
         int numMatrix = 0, numOp = 0;
         MOperator operator = MOperator.UNKNOWN;
+        try{
+
         while(expMatcher.find()){
             String unit = expMatcher.group();
             System.out.println("handle: " + unit);
@@ -75,29 +77,23 @@ public class MatrixCal{
                 operator = MOperator.getOperator(unit);
             }
             if(numMatrix > 2 || numOp > 1){
-                System.err.println("Matrix Operators more than 1 or op nums more than 2");
-                return "";
+                throw new Exception("Matrix Operators more than 1 or op nums more than 2");
             }
         }
-        if(numMatrix == 0){
-            System.err.println("Not enough Matrix");
-            return "";
-        }
+        if(numMatrix == 0) return "";
         Matrix rhs = new Matrix(defaultValue, 1, 1);
         Matrix lhs = new Matrix(defaultValue, 1, 1);
         rhs = mStack.pop();
         if(operator == MOperator.UNKNOWN){
             if(numMatrix == 2){
-                // error info
-                return "";
+                throw new Exception("Lack of Operator or Unkown Operator"); 
             }
             mResult = rhs;
         }
         else{
             int opNum = operator.getNum();
             if(opNum != numMatrix){
-                // error info
-                return "";
+                throw new Exception(operator.getName() + " require " + opNum + " operands");
             }
             if(opNum == 1)
                 mResult = operator.compute(lhs, rhs);
@@ -105,6 +101,11 @@ public class MatrixCal{
                 lhs = mStack.pop();
                 mResult = operator.compute(lhs, rhs);
             }
+        }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         return dumpMatrix(mResult);
     }
@@ -142,6 +143,7 @@ public class MatrixCal{
 }
 
 enum MOperator{
+
     PLUS("+", 2){
         @Override
         public Matrix compute(Matrix a, Matrix b){
@@ -234,6 +236,9 @@ enum MOperator{
         return opNum;
     }
 
+    public String getName(){
+        return opName;
+    }
+
     public abstract Matrix compute(Matrix a, Matrix b);
 }
-

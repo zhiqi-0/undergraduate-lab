@@ -77,10 +77,12 @@ public class CalMain extends Application{
         /* define input text */
         inputArea.setPrefSize(defaultLen, 120);
         inputArea.setPromptText("put your numbers here...");
+        inputArea.setWrapText(true);
         vbox.getChildren().add(inputArea);
         /* define output label */
         outputArea.setPrefSize(defaultLen, 120);
         outputArea.setEditable(false);
+        outputArea.setWrapText(true);
         vbox.getChildren().add(outputArea);
         /* define basic number layout */
         GridPane buttonGrid = new GridPane();
@@ -414,8 +416,12 @@ public class CalMain extends Application{
                     inputArea.appendText(digitButtons[index].getText());
                     if(unMatchParen == 0 && currentMode == Mode.Regular){
                         String calExp = inputArea.getText();
-                        double res = rCal.rExpValue(calExp);
-                        outputArea.setText(Double.toString(res));
+                        try{
+                            double res = rCal.rExpValue(calExp);
+                            outputArea.setText(Double.toString(res));
+                        }catch(Exception e){
+                            outputArea.setText("--");
+                        }
                     }
                 }
             });
@@ -467,11 +473,19 @@ public class CalMain extends Application{
                     public void handle(ActionEvent event){
                         String calExp = inputArea.getText();
                         if(currentMode == Mode.Regular){
-                            double res = rCal.rExpValue(calExp);
-                            outputArea.setText(Double.toString(res));
+                            try{
+                                double res = rCal.rExpValue(calExp);
+                                outputArea.setText(Double.toString(res));
+                            }catch(Exception e){
+                                outputArea.setText(e.getMessage());
+                            }
                         }
                         else if(currentMode == Mode.Matrix){
-                            outputArea.setText(mCal.calMatrix(calExp));
+                            try{
+                                outputArea.setText(mCal.calMatrix(calExp));
+                            }catch(Exception e){
+                                outputArea.setText(e.getMessage());
+                            }
                         }
                         cleanFlag = true;
                     }
@@ -497,8 +511,12 @@ public class CalMain extends Application{
                         unMatchParen--;
                         if(unMatchParen == 0 && currentMode == Mode.Regular){
                             String calExp = inputArea.getText();
-                            double res = rCal.rExpValue(calExp);
-                            outputArea.setText(Double.toString(res));
+                            try{
+                                double res = rCal.rExpValue(calExp);
+                                outputArea.setText(Double.toString(res));
+                            }catch(Exception e){
+                                outputArea.setText(e.getMessage());
+                            }
                         }
                     }
                 });
@@ -508,9 +526,13 @@ public class CalMain extends Application{
                     @Override
                     public void handle(ActionEvent event){
                         String calExp = inputArea.getText();
-                        double res = rCal.rExpValue(calExp);
-                        outputArea.setText(Double.toString(res));
-                        rCal.setM(res);
+                        try{
+                            double res = rCal.rExpValue(calExp);
+                            outputArea.setText(Double.toString(res));
+                            rCal.setM(res);
+                        }catch(Exception e){
+                            outputArea.setText(e.getMessage());
+                        }
                     }
                 });
                 break;

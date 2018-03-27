@@ -14,7 +14,7 @@ public class RegularCal{
     private Stack<Double> numberStack = new Stack<>();
     private Stack<Operator> opStack = new Stack<>();
 
-    double rExpValue(String exp){
+    double rExpValue(String exp) throws Exception{
         double number = 0;
         numberStack.clear(); opStack.clear();
         // preprocessing expression: replace exp and deal with '-'
@@ -47,7 +47,7 @@ public class RegularCal{
             else{
                 Operator operator = Operator.getOperator(unit);
                 if(operator == Operator.UNKNOWN){
-                    System.out.println("Unknown Operator");
+                    throw new Exception("Unkown operator");
                 }
                 if(operator == Operator.LEFTPAREN){
                     opStack.push(operator);
@@ -79,7 +79,7 @@ public class RegularCal{
     // get a operator from opStack and
     // get number from numberStack and
     // calculate then put back to numberStack
-    void stepCal(){
+    void stepCal() throws Exception{
         double lhs =0, rhs = 0;
         Operator op = Operator.UNKNOWN;
         try{
@@ -90,10 +90,14 @@ public class RegularCal{
             if(opNum == 2)
                 lhs = numberStack.pop();
         }catch(EmptyStackException e){
-            System.out.println("Final Pop: Illegal pop");
+            throw new Exception("Operands or Operator number error");
         }finally{
             rResult = op.compute(lhs, rhs);
             numberStack.push(rResult);
+            // check for compute 
+            if(Double.isNaN(rResult) || Double.isInfinite(rResult)){
+                throw new Exception("Divisor can't be 0 or function parameter out of domain");
+            }
         }
     }
 
