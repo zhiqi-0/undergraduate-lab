@@ -409,10 +409,7 @@ public class CalMain extends Application{
             digitButtons[i].setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event){
-                    if(cleanFlag){
-                        inputArea.clear();
-                        outputArea.clear();
-                    }
+                    setClean();
                     inputArea.appendText(digitButtons[index].getText());
                     if(unMatchParen == 0 && currentMode == Mode.Regular){
                         String calExp = inputArea.getText();
