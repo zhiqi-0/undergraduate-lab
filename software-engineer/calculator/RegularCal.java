@@ -19,6 +19,7 @@ public class RegularCal{
         numberStack.clear(); opStack.clear();
         // preprocessing expression: replace exp and deal with '-'
         System.out.println("Before Preprocess: " + exp);
+        exp = exp.replaceAll("--", "\\+");
         exp = exp.replaceAll("exp", "e^");
         exp = new StringBuilder(exp).reverse().toString();
         exp = exp.replaceAll("-(?=\\D|$)", "-0");
