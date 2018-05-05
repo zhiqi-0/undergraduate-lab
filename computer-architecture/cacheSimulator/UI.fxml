@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPaneController">
+<children>
+      <Label id="titleLabel" layoutX="282.0" layoutY="4.0" prefHeight="38.0" prefWidth="150.0" text="Cache Simulator" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="14.0" layoutY="54.0" prefHeight="273.0" prefWidth="210.0">
+         <children>
+            <Label id="paraLabel" prefHeight="41.0" prefWidth="215.0" text="              parameter">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="35.0" prefWidth="215.0">
+               <children>
+                  <HBox prefHeight="41.0" prefWidth="215.0">
+                     <children>
+                        <Label id="blockLabel" prefHeight="25.0" prefWidth="91.0" text="Block Size:" />
+                        <ComboBox id="blockChoice" fx:id="blockSizeChoice" prefHeight="27.0" prefWidth="105.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="215.0">
+               <children>
+                  <HBox prefHeight="41.0" prefWidth="215.0">
+                     <children>
+                        <Label id="assLabel" prefHeight="25.0" prefWidth="91.0" text="Associativity:" />
+                        <ComboBox id="assChoice" fx:id="assSizeChoice" prefHeight="27.0" prefWidth="105.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="254.0">
+               <children>
+                  <Label id="replaceLabel" prefHeight="25.0" prefWidth="91.0" text="Replacement:" />
+                  <ComboBox id="replaceChoice" fx:id="replaceChoice" prefHeight="27.0" prefWidth="104.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="254.0">
+               <children>
+                  <Label id="prefetchLabel" prefHeight="25.0" prefWidth="91.0" text="Prefetch:" />
+                  <ComboBox id="prefetchChoice" fx:id="prefetchChoice" prefHeight="27.0" prefWidth="104.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="215.0">
+               <children>
+                  <Label id="writeStLabel" prefHeight="25.0" prefWidth="91.0" text="Write:" />
+                  <ComboBox id="writeChoice" fx:id="writeChoice" prefHeight="27.0" prefWidth="104.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="215.0">
+               <children>
+                  <Label id="writeStLabel" prefHeight="25.0" prefWidth="91.0" text="Write Miss:" />
+                  <ComboBox id="writeChoice" fx:id="writeMissChoice" prefHeight="27.0" prefWidth="104.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="237.0" layoutY="60.0" prefHeight="254.0" prefWidth="535.0">
+         <children>
+            <HBox prefHeight="37.0" prefWidth="283.0">
+               <children>
+                  <Label id="exLabel" prefHeight="31.0" prefWidth="90.0" text="Execution:">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Button id="stepButton" fx:id="stepButton" mnemonicParsing="false" onAction="#buttonStepRun" prefHeight="32.0" prefWidth="88.0" text="Single Step">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="runButton" fx:id="runButton" mnemonicParsing="false" onAction="#buttonRun" prefHeight="33.0" prefWidth="76.0" text="Run" />
+                  <Button fx:id="resetButton" mnemonicParsing="false" onAction="#buttonReset" prefHeight="33.0" prefWidth="77.0" text="Reset">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Label id="resultLabel" prefHeight="37.0" prefWidth="282.0" text="Simulation Result:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="32.0" prefWidth="429.0">
+               <children>
+                  <Label id="totalAccessLable" prefHeight="27.0" prefWidth="147.0" text="Total Access Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="totalAccessText" fx:id="taText" editable="false" prefHeight="27.0" prefWidth="80.0" />
+                  <Label id="taMissLabel" prefHeight="26.0" prefWidth="85.0" text=" Miss Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="taMissText" fx:id="taMissText" editable="false" prefHeight="27.0" prefWidth="65.0" />
+                  <Label id="taMissRateLabel" prefHeight="25.0" prefWidth="83.0" text=" Miss Rate:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="taMissRateText" fx:id="taMissRateText" editable="false" prefHeight="27.0" prefWidth="67.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="283.0">
+               <children>
+                  <Label id="readInstrLabel" prefHeight="27.0" prefWidth="147.0" text="Read Instr Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="readInstrText" fx:id="riText" editable="false" prefHeight="27.0" prefWidth="80.0" />
+                  <Label id="riMissLabel" prefHeight="26.0" prefWidth="85.0" text=" Miss Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="riMissText" fx:id="riMissText" editable="false" prefHeight="27.0" prefWidth="65.0" />
+                  <Label id="riMissRateLabel" prefHeight="25.0" prefWidth="83.0" text=" Miss Rate:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="riMissRateText" fx:id="riMissRateText" editable="false" prefHeight="27.0" prefWidth="67.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="283.0">
+               <children>
+                  <Label id="readDataLabel" prefHeight="27.0" prefWidth="147.0" text="Read Data Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="readDataText" fx:id="rdText" editable="false" prefHeight="27.0" prefWidth="81.0" />
+                  <Label id="rdMissLabel" prefHeight="26.0" prefWidth="85.0" text=" Miss Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="rdMissText" fx:id="rdMissText" editable="false" prefHeight="27.0" prefWidth="64.0" />
+                  <Label id="rdMissRateLabel" prefHeight="25.0" prefWidth="84.0" text=" Miss Rate:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="rdMissRateText" fx:id="rdMissRateText" editable="false" prefHeight="27.0" prefWidth="67.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="477.0">
+               <children>
+                  <Label id="wirteDataLabel" prefHeight="27.0" prefWidth="147.0" text="Write Data Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="writeDataText" fx:id="wdText" editable="false" prefHeight="27.0" prefWidth="82.0" />
+                  <Label id="wdMissLabel" prefHeight="26.0" prefWidth="85.0" text=" Miss Time:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="wdMissText" fx:id="wdMissText" editable="false" prefHeight="27.0" prefWidth="64.0" />
+                  <Label id="wdMissRateLabel" prefHeight="25.0" prefWidth="83.0" text=" Miss Rate:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="wdMissRateText" fx:id="wdMissRateText" editable="false" prefHeight="27.0" prefWidth="67.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="477.0">
+               <children>
+                  <Label id="pathLabel" prefHeight="25.0" prefWidth="91.0" text="Data Path:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField id="pathText" fx:id="pathText" prefHeight="27.0" prefWidth="363.0" />
+                  <Button id="scanButton" fx:id="scanButton" mnemonicParsing="false" onAction="#buttonActionScan" prefHeight="27.0" prefWidth="62.0" text="Scan" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Separator layoutX="223.0" layoutY="54.0" orientation="VERTICAL" prefHeight="254.0" prefWidth="4.0" />
+      <Label id="wirteDataLabel" layoutX="11.0" layoutY="317.0" prefHeight="33.0" prefWidth="95.0" text="Cache Type:" />
+      <TabPane fx:id="cacheTypeChoice" layoutX="106.0" layoutY="317.0" prefHeight="74.0" prefWidth="597.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Union">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label id="sizeLabel" layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="85.0" text="Cache Size:" />
+                        <ComboBox id="sizeChoice" fx:id="cacheUnionSizeChoice" layoutX="116.0" layoutY="7.0" prefHeight="17.0" prefWidth="98.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Seperate">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label id="sizeLabel" layoutX="14.0" layoutY="8.0" prefHeight="25.0" prefWidth="91.0" text="I-Cache Size:" />
+                        <ComboBox id="sizeChoice" fx:id="cacheISizeChoice" layoutX="105.0" layoutY="7.0" prefHeight="27.0" prefWidth="76.0" />
+                        <Label id="sizeLabel" layoutX="233.0" layoutY="8.0" prefHeight="25.0" prefWidth="91.0" text="D-Cache Size:" />
+                        <ComboBox id="sizeChoice" fx:id="cacheDSizeChoice" layoutX="331.0" layoutY="7.0" prefHeight="27.0" prefWidth="76.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+</children>
+</AnchorPane>
