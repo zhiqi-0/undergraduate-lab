@@ -24,5 +24,13 @@
   * Use LLVM to complete C1 language design
   * Thank to Yu Zhang @USTC providing such a great lab program
 
+* computer architecture lab  
+  * cache simulator
+
+* artificial intelligence lab  
+  * resolution
+  * 22 digits problem (AStar alg & IDAStar alg)
+  * N-queen problem (Annealing alg)
+
 * software engineering
   * calculator design; (javafx)
