@@ -8,10 +8,6 @@
   * 展示实例为运行 3，3 位起始的斐波那契数列，并按顺序存入内存 ram 单元
   * 没有实现中断
   * 单元测试结果以 Mars 运行结果为准，已经经过测试，测试代码未上传，可自拟
-  
-* mathematical-logic-lab
-  * 实现归结原理对 L 命题演算的证明。
-  * 具体可参见 mathematical-logic-lab/ 目录下的 MarkDown 文档
 
 * algorithm lab
   * fft
