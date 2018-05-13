@@ -22,11 +22,12 @@
 
 * computer architecture lab  
   * cache simulator
+  * Tomasulo monitor
 
 * artificial intelligence lab  
   * resolution
   * 22 digits problem (AStar alg & IDAStar alg)
-  * N-queen problem (Annealing alg)
+  * N-queen problem (Annealing & climbing alg)
 
 * software engineering
   * calculator design; (javafx)
