@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+    <title>Manager Bank System</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/utils.css">
+    <div class="container">
+        <div class="overlay"></div>
+    </div>
+</header>
+
+<body class="body">
+    <!--navbar creation-->
+    <nav class="navbar navbar-expand-md fixed-top">
+            <a class="navbar-brand" href="manager">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+         <div class="collapse navbar-collapse " id="navbarSupportedContent">
+              <ul class="navbar-nav mr-2">
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="branch">Branch</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="employer">Employer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="customer">Customer</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="account">Account</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="loan">Loan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="statistic">Statistic</a>
+                </li>              
+              </ul>             
+        </div>
+    </nav>
+
+    <!-- data view & option secton -->
+    <h1 class="text-center" id="loan">Account Management</h1>
+    <div class="container">
+      <form method="post">
+        <div class="row" style="margin-top:3em;">
+          <!-- data view section-->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              Data shows here
+          </div>
+          <!-- manager optional section -->
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <h3>Exist Form</h3>
+            <div class="form-group">
+                <label for="existLoanNumber">Exist Loan Number</label>
+                <input type="text" class="form-control" id="existLoanNumber" placeholder="Enter employer ID">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+            </div>
+            <div class="form-group">
+                <label for="existDepartName">Exist Department Name</label>
+                <input type="text" class="form-control" id="existDepartName" placeholder="Enter employer name">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+            </div>
+            <div class="form-group">
+                <label for="existMoney">Exist Total Money</label>
+                <input type="text" class="form-control" id="existMoney" placeholder="Enter employer address">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
+            </div>
+            <div class="form-group">
+                <label for="existPaymentTime">Exist Payment Times</label>
+                <input type="text" class="form-control" id="existPaymentTime" placeholder="Enter employer phone">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
+            </div>
+            <div class="form-group">
+                <label for="manageOption">Manage Option</label>
+                <select class="form-control" id="manageOption">
+                    <option>Search</option>
+                    <option>Create</option>
+                    <option>Delete</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <h3>Update Form</h3>
+            <div class="form-group">
+                <label for="newLoanNum">New Loan Number</label>
+                <input type="text" class="form-control" id="newLoanNum" placeholder="Enter employer ID">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <div class="form-group">
+                <label for="newDepartName">New Department Name</label>
+                <input type="text" class="form-control" id="newDepartName" placeholder="Enter employer name">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <div class="form-group">
+                <label for="newTotalMoney">New Total Money</label>
+                <input type="text" class="form-control" id="newTotalMoney" placeholder="Enter employer address">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <div class="form-group">
+                <label for="newPaymentTime">New Payment Times</label>
+                <input type="text" class="form-control" id="newPaymentTime" placeholder="Enter employer phone">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../static/js/utils.js"></script>
+</body>
+
+</html>

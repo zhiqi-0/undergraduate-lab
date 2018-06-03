@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Zhiqi Bank Login</title>
+      <link rel="stylesheet" href="../static/css/login.css">
+</head>
+
+<body>
+
+  <div class="login-page">
+
+  <div class="form">
+
+    <form class="register-form" action="/register" method="post">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+
+    </form>
+    <form class="login-form" action='/manager' method="post">
+      <input name="account" type="text" placeholder="username"/>
+      <input name="password" type="password" placeholder="password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+    </form>
+
+  </div>
+  
+</div>
+  <script src='../static/js/jquery-3.3.1.js'></script>
+  <script src="../static/js/login.js"></script>
+
+</body>
+
+</html>
