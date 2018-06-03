@@ -46,53 +46,79 @@
     <!-- data view & option secton -->
     <h1 class="text-center" id="account">Account Management</h1>
     <div class="container">
-      <form method="post">
+      <form action="account" method="post">
         <div class="row" style="margin-top:3em;">
           <!-- data view section-->
           <div class="col-lg-6 col-md-6 col-sm-12">
-              Data shows here
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>账户号</th>
+                  <th>余额</th>
+                  <th>开户日期</th>
+                  <th>最近访问日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for acc in accounts %}
+                <tr>
+                   <td>{{acc.账户号}}</td>
+                   <td>{{acc.余额}}</td>
+                   <td>{{acc.开户日期}}</td>
+                   <td>{{acc.最近访问日期}}</td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td>No Result</td>
+                  <td>No Result</td>
+                  <td>No Result</td>
+                  <td>No Result</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
           <!-- manager optional section -->
           <div class="col-lg-3 col-md-3 col-sm-12">
             <h3>Exist Form</h3>
             <div class="form-group">
                 <label for="existAccount">Exist Account</label>
-                <input type="text" class="form-control" id="existAccount" placeholder="Enter employer ID">
+                <input name="existAccNum" type="text" class="form-control" id="existAccount" placeholder="Enter employer ID">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existBalance">Exist Balance</label>
-                <input type="text" class="form-control" id="existBalance" placeholder="Enter employer name">
+                <input name="existBalance" type="text" class="form-control" id="existBalance" placeholder="Enter employer name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existOpenDate">Exist Account Open Date</label>
-                <input type="text" class="form-control" id="existOpenDate" placeholder="Enter employer address">
+                <input name="existOpenDate" type="text" class="form-control" id="existOpenDate" placeholder="Enter employer address">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existLastVisitDate">Exist Last Visit Date</label>
-                <input type="text" class="form-control" id="existLastVisitDate" placeholder="Enter employer phone">
+                <input name="existLastVisitDate" type="text" class="form-control" id="existLastVisitDate" placeholder="Enter employer phone">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existOverdraft">Exist Overdraft</label>
-                <input type="text" class="form-control" id="existOverdraft" placeholder="Enter department name">
+                <input name="existOverdraft" type="text" class="form-control" id="existOverdraft" placeholder="Enter department name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existInterest">Exist Interest Rate</label>
-                <input type="text" class="form-control" id="existInterest" placeholder="Enter department number">
+                <input name="existInterest" type="text" class="form-control" id="existInterest" placeholder="Enter department number">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existCurrencyType">Exist Currency Type</label>
-                <input type="text" class="form-control" id="existCurrencyType" placeholder="Enter job taking time">
+                <input name="existCurrType" type="text" class="form-control" id="existCurrencyType" placeholder="Enter job taking time">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="manageOption">Manage Option</label>
-                <select class="form-control" id="manageOption">
+                <select name="option" class="form-control" id="manageOption">
                     <option>Search</option>
                     <option>Create</option>
                     <option>Update</option>
@@ -104,37 +130,37 @@
             <h3>Update Form</h3>
             <div class="form-group">
                 <label for="newAccount">New Account</label>
-                <input type="text" class="form-control" id="newAccount" placeholder="Enter employer ID">
+                <input name="newAccNum" type="text" class="form-control" id="newAccount" placeholder="Enter employer ID">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newBalance">New Balance</label>
-                <input type="text" class="form-control" id="newBalance" placeholder="Enter employer name">
+                <input name="newBalance" type="text" class="form-control" id="newBalance" placeholder="Enter employer name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newOpenDate">New Account Open Date</label>
-                <input type="text" class="form-control" id="newOpenDate" placeholder="Enter employer address">
+                <input name="newOpenDate" type="text" class="form-control" id="newOpenDate" placeholder="Enter employer address">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newLastVisitDate">New Last Visit Date</label>
-                <input type="text" class="form-control" id="newLastVisitDate" placeholder="Enter employer phone">
+                <input name="newLastVisitDate" type="text" class="form-control" id="newLastVisitDate" placeholder="Enter employer phone">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newOverdraft">New Overdraft</label>
-                <input type="text" class="form-control" id="newOverdraft" placeholder="Enter department name">
+                <input name="newOverdraft" type="text" class="form-control" id="newOverdraft" placeholder="Enter department name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newInterest">New Interest Rate</label>
-                <input type="text" class="form-control" id="newInterest" placeholder="Enter department number">
+                <input name="newInterest" type="text" class="form-control" id="newInterest" placeholder="Enter department number">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newCurrencyType">New Currency Type</label>
-                <input type="text" class="form-control" id="newCurrencyType" placeholder="Enter job taking time">
+                <input name="newCurrType" type="text" class="form-control" id="newCurrencyType" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>
