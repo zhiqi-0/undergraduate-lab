@@ -8,8 +8,8 @@ var Account = db.define('account', {
         primaryKey: true
     },
     余额: Sequelize.INTEGER,
-    开户日期: Sequelize.TIME,
-    最近访问日期: Sequelize.TIME
+    开户日期: Sequelize.DATE,
+    最近访问日期: Sequelize.DATE
 }, {
     timestamps: false,
     freezeTableName: true,
@@ -22,8 +22,8 @@ var SavingAccount = db.define('saveingAccount', {
         primaryKey: true
     },
     余额: Sequelize.INTEGER,
-    开户日期: Sequelize.TIME,
-    最近访问日期: Sequelize.TIME,
+    开户日期: Sequelize.DATE,
+    最近访问日期: Sequelize.DATE,
     利率: Sequelize.DOUBLE,
     货币类型: Sequelize.STRING(20)
 }, {
@@ -38,8 +38,8 @@ var CreditAccount = db.define('creditAccount', {
         primaryKey: true
     },
     余额: Sequelize.INTEGER,
-    开户日期: Sequelize.TIME,
-    最近访问日期: Sequelize.TIME,
+    开户日期: Sequelize.DATE,
+    最近访问日期: Sequelize.DATE,
     透支额: Sequelize.DOUBLE
 }, {
     timestamps: false,

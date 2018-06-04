@@ -53,20 +53,43 @@
              <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Branch Name</th>
-                  <th>Branch Location</th>
+                  <th>支行</th>
+                  <th>地点</th>
+                  <th>部门</th>
+                  <th>部门号</th>
+                  <th>部门类型</th>
+                  <th>部门经理ID</th>
                 </tr>
               </thead>
               <tbody>
                 {% for b in branches %}
+                {% for depart in b.departments %}
                 <tr>
                   <td>{{b.支行名}}</td>
                   <td>{{b.所在城市}}</td>
+                  <td>{{depart.部门名}}</td>
+                  <td>{{depart.部门号}}</td>
+                  <td>{{depart.部门类型}}</td>
+                  <td>{{depart.部门经理身份证}}</td>
                 </tr>
+                  {% else %}
+                <tr>
+                  <td>{{b.支行名}}</td>
+                  <td>{{b.所在城市}}</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                {% endfor %}
                 {% else %}
                 <tr>
-                  <td>No Result</td>
-                  <td>No Result</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -77,13 +100,33 @@
            <h3>Exist Form</h3>
            <div class="form-group">
                <label for="existBranchName">Exist Branch Name</label>
-               <input name="existName" type="text" class="form-control" id="existBranchName" placeholder="Enter employer ID">
+               <input name="existName" type="text" class="form-control" id="existBranchName" placeholder="Enter Branch Name">
                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
            </div>
            <div class="form-group">
                <label for="existBranchLocation">Exist Branch Location</label>
-               <input name="existLoc" type="text" class="form-control" id="existBranchLocation" placeholder="Enter employer name">
+               <input name="existLoc" type="text" class="form-control" id="existBranchLocation" placeholder="Enter Branch Location">
                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+           </div>
+           <div class="form-group">
+              <label for="existDepartName">Exist Department Name</label>
+              <input name="existDepartName" type="text" class="form-control" id="existDepartName" placeholder="Enter Department Name">
+              <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+           </div>
+           <div class="form-group">
+              <label for="existDepartNum">Exist Department Num</label>
+              <input name="existDepartNum" type="text" class="form-control" id="existDepartNum" placeholder="Enter Department Number">
+              <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+           </div>
+           <div class="form-group">
+              <label for="existDepartType">Exist Department Type</label>
+              <input name="existDepartType" type="text" class="form-control" id="existDepartType" placeholder="Enter Department Type">
+              <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+           </div>
+           <div class="form-group">
+              <label for="existDepartManager">Exist Department Manager ID</label>
+              <input name="existDepartMID" type="text" class="form-control" id="existDepartMID" placeholder="Enter Department ManagerID">
+              <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
            </div>
            <div class="form-group">
                <label for="manageOption">Manage Option</label>
@@ -106,6 +149,26 @@
                <label for="newBranchLocation">New Branch Location</label>
                <input name="newLoc" type="text" class="form-control" id="newBranchLocation" placeholder="Enter employer name">
                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+           </div>
+           <div class="form-group">
+              <label for="newDepartName">New Department Name</label>
+              <input name="newDepartName" type="text" class="form-control" id="newDepartName" placeholder="Enter Department Name">
+              <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+           </div>
+           <div class="form-group">
+              <label for="newDepartNum">New Department Num</label>
+              <input name="newDepartNum" type="text" class="form-control" id="newDepartNum" placeholder="Enter Department Number">
+              <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+           </div>
+           <div class="form-group">
+              <label for="newDepartType">New Department Type</label>
+              <input name="newDepartType" type="text" class="form-control" id="newDepartType" placeholder="Enter Department Type">
+              <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+           </div>
+           <div class="form-group">
+              <label for="newDepartManager">New Department Manager ID</label>
+              <input name="newDepartMID" type="text" class="form-control" id="newDepartMID" placeholder="Enter Department ManagerID">
+              <small id="createHelp" class="form-text text-muted">Only for create, update</small>
            </div>
            <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>
          </div>

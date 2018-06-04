@@ -46,53 +46,82 @@
     <!-- data view & option secton -->
     <h1 class="text-center" id="employer">Account Management</h1>
     <div class="container">
-      <form method="post">
+      <form action="employer" method="post">
         <div class="row" style="margin-top:3em;">
           <!-- data view section-->
           <div class="col-lg-6 col-md-6 col-sm-12">
-              Data shows here
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>部门号</th>
+                    <th>姓名</th>
+                    <th>地址</th>
+                    <th>电话</th>
+                    <th>入职</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for emp in employers %}
+                  <tr>
+                     <td>{{emp.身份证}}</td>
+                     <td>{{emp.部门号}}</td>
+                     <td>{{emp.姓名}}</td>
+                     <td>{{emp.家庭地址}}</td>
+                     <td>{{emp.电话号码}}</td>
+                     <td>{{emp.开始工作日期}}</td>
+                  </tr>
+                  {% else %}
+                  <tr>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- manager optional section -->
           <div class="col-lg-3 col-md-3 col-sm-12">
             <h3>Exist Form</h3>
             <div class="form-group">
                 <label for="existEmployerID">Exist Employer ID</label>
-                <input type="text" class="form-control" id="existEmployerID" placeholder="Enter employer ID">
+                <input name="existID" type="text" class="form-control" id="existEmployerID" placeholder="Enter employer ID">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existEmployerName">Exist Employer Name</label>
-                <input type="text" class="form-control" id="existEmployerName" placeholder="Enter employer name">
+                <input name="existName" type="text" class="form-control" id="existEmployerName" placeholder="Enter employer name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existEmployerAddr">Exist Employer Address</label>
-                <input type="text" class="form-control" id="existEmployerAddr" placeholder="Enter employer address">
+                <input name="existAddr" type="text" class="form-control" id="existEmployerAddr" placeholder="Enter employer address">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existEmployerPhone">Exist Employer Phone</label>
-                <input type="text" class="form-control" id="existEmployerPhone" placeholder="Enter employer phone">
+                <input name="existPhone" type="text" class="form-control" id="existEmployerPhone" placeholder="Enter employer phone">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
-                <label for="existDepartName">Exist Employer Department Name</label>
-                <input type="text" class="form-control" id="existDepartName" placeholder="Enter department name">
-                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
-            </div>
-            <div class="form-group">
                 <label for="existDepartNum">Exist Employer Department Num.</label>
-                <input type="text" class="form-control" id="existDepartNum" placeholder="Enter department number">
+                <input name="existDepartNum" type="text" class="form-control" id="existDepartNum" placeholder="Enter department number">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existEmployerTime">Exist Employer Start Working</label>
-                <input type="text" class="form-control" id="existEmployerTime" placeholder="Enter job taking time">
+                <input name="existWorkTime" type="text" class="form-control" id="existEmployerTime" placeholder="Enter job taking time">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="manageOption">Manage Option</label>
-                <select class="form-control" id="manageOption">
+                <select name="option" class="form-control" id="manageOption">
                     <option>Search</option>
                     <option>Create</option>
                     <option>Update</option>
@@ -104,37 +133,32 @@
             <h3>Update Form</h3>
             <div class="form-group">
                 <label for="newEmployerID">New Employer ID</label>
-                <input type="text" class="form-control" id="newEmployerID" placeholder="Enter employer ID">
+                <input name="newID" type="text" class="form-control" id="newEmployerID" placeholder="Enter employer ID">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newEmployerName">New Employer Name</label>
-                <input type="text" class="form-control" id="newEmployerName" placeholder="Enter employer name">
+                <input name="newName" type="text" class="form-control" id="newEmployerName" placeholder="Enter employer name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newEmployerAddr">New Employer Address</label>
-                <input type="text" class="form-control" id="newEmployerAddr" placeholder="Enter employer address">
+                <input name="newAddr" type="text" class="form-control" id="newEmployerAddr" placeholder="Enter employer address">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newEmployerPhone">New Employer Phone</label>
-                <input type="text" class="form-control" id="newEmployerPhone" placeholder="Enter employer phone">
-                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
-            </div>
-            <div class="form-group">
-                <label for="newDepartName">New Employer Department Name</label>
-                <input type="text" class="form-control" id="newDepartName" placeholder="Enter department name">
+                <input name="newPhone" type="text" class="form-control" id="newEmployerPhone" placeholder="Enter employer phone">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newDepartNum">New Employer Department Num.</label>
-                <input type="text" class="form-control" id="newDepartNum" placeholder="Enter department number">
+                <input name="newDepartNum" type="text" class="form-control" id="newDepartNum" placeholder="Enter department number">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newEmployerTime">New Employer Start Working</label>
-                <input type="text" class="form-control" id="newEmployerTime" placeholder="Enter job taking time">
+                <input name="newWorkTime" type="text" class="form-control" id="newEmployerTime" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>

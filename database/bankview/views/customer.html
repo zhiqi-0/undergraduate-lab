@@ -46,63 +46,106 @@
     <!-- data view & option secton -->
     <h1 class="text-center" id="account">Account Management</h1>
     <div class="container">
-      <form method="post">
+      <form action="customer" method="post">
         <div class="row" style="margin-top:3em;">
           <!-- data view section-->
-          <div class="col-lg-6 col-md-6 col-sm-12">
-              Data shows here
+          <div class="col-lg-6 col-md-6">
+            <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>姓名</th>
+                  <th>地址</th>
+                  <th>电话</th>
+                  <th>受理员工ID</th>
+                  <th>联系人姓名</th>
+                  <th>联系人手机</th>
+                  <th>联系人邮箱</th>
+                  <th>联系人关系</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cus in customers %}
+                <tr>
+                   <td>{{cus.身份证}}</td>
+                   <td>{{cus.姓名}}</td>
+                   <td>{{cus.家庭地址}}</td>
+                   <td>{{cus.电话号码}}</td>
+                   <td>{{cus.员工_身份证}}</td>
+                   <td>{{cus.联系人姓名}}</td>
+                   <td>{{cus.联系人手机}}</td>
+                   <td>{{cus.联系人邮箱}}</td>
+                   <td>{{cus.联系人关系}}</td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            </div>
           </div>
           <!-- manager optional section -->
-          <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-xs-12">
             <h3>Exist Form</h3>
             <div class="form-group">
                 <label for="existCustomerID">Exist Customer ID</label>
-                <input type="text" class="form-control" id="existCustomerID" placeholder="Enter Customer ID">
+                <input name="existID" type="text" class="form-control" id="existCustomerID" placeholder="Enter Customer ID">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existCustomerName">Exist Customer Name</label>
-                <input type="text" class="form-control" id="existCustomerName" placeholder="Enter Customer name">
+                <input name="existName" type="text" class="form-control" id="existCustomerName" placeholder="Enter Customer name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existCustomerAddr">Exist Customer Address</label>
-                <input type="text" class="form-control" id="existCustomerAddr" placeholder="Enter Customer address">
+                <input name="existAddr" type="text" class="form-control" id="existCustomerAddr" placeholder="Enter Customer address">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existCustomerPhone">Exist Customer Phone</label>
-                <input type="text" class="form-control" id="existCustomerPhone" placeholder="Enter Customer phone">
+                <input name="existPhone" type="text" class="form-control" id="existCustomerPhone" placeholder="Enter Customer phone">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existAssigneeID">Exist Assignee ID</label>
-                <input type="text" class="form-control" id="existAssigneeID" placeholder="Enter department name">
+                <input name="existAssigneeID" type="text" class="form-control" id="existAssigneeID" placeholder="Enter department name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existContactsName">Exist Contacts Name</label>
-                <input type="text" class="form-control" id="existContactsName" placeholder="Enter department name">
+                <input name="existConName" type="text" class="form-control" id="existContactsName" placeholder="Enter department name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existContactsPhone">Exist Contacts Phone</label>
-                <input type="text" class="form-control" id="existContactsPhone" placeholder="Enter department number">
+                <input name="existConPhone" type="text" class="form-control" id="existContactsPhone" placeholder="Enter department number">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existContactsMail">Exist Contacts Mail</label>
-                <input type="text" class="form-control" id="existContactsMail" placeholder="Enter job taking time">
+                <input name="existConMail" type="text" class="form-control" id="existContactsMail" placeholder="Enter job taking time">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existContactsRelation">Exist Contacts Relationship</label>
-                <input type="text" class="form-control" id="existContactsRelation" placeholder="Enter job taking time">
+                <input name="existConRelation" type="text" class="form-control" id="existContactsRelation" placeholder="Enter job taking time">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="manageOption">Manage Option</label>
-                <select class="form-control" id="manageOption">
+                <select name="option" class="form-control" id="manageOption">
                     <option>Search</option>
                     <option>Create</option>
                     <option>Update</option>
@@ -110,51 +153,51 @@
                 </select>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-xs-12">
             <h3>Update Form</h3>
             <div class="form-group">
                 <label for="newCustomerID">New Customer ID</label>
-                <input type="text" class="form-control" id="newCustomerID" placeholder="Enter Customer ID">
+                <input name="newID" type="text" class="form-control" id="newCustomerID" placeholder="Enter Customer ID">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newCustomerName">New Customer Name</label>
-                <input type="text" class="form-control" id="newCustomerName" placeholder="Enter Customer name">
+                <input name="newName" type="text" class="form-control" id="newCustomerName" placeholder="Enter Customer name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newCustomerAddr">New Customer Address</label>
-                <input type="text" class="form-control" id="newCustomerAddr" placeholder="Enter Customer address">
+                <input name="newAddr" type="text" class="form-control" id="newCustomerAddr" placeholder="Enter Customer address">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newCustomerPhone">New Customer Phone</label>
-                <input type="text" class="form-control" id="newCustomerPhone" placeholder="Enter Customer phone">
+                <input name="newPhone" type="text" class="form-control" id="newCustomerPhone" placeholder="Enter Customer phone">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newAssigneeID">New Assignee ID</label>
-                <input type="text" class="form-control" id="newAssigneeID" placeholder="Enter department name">
+                <input name="newAssigneeID" type="text" class="form-control" id="newAssigneeID" placeholder="Enter department name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newContactsName">New Contacts Name</label>
-                <input type="text" class="form-control" id="newContactsName" placeholder="Enter department number">
+                <input name="newConName" type="text" class="form-control" id="newContactsName" placeholder="Enter department number">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newContactsPhone">New Contacts Phone</label>
-                <input type="text" class="form-control" id="newContactsPhone" placeholder="Enter job taking time">
+                <input name="newConPhone" type="text" class="form-control" id="newContactsPhone" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newContactsMail">New Contacts Mail</label>
-                <input type="text" class="form-control" id="newContactsMail" placeholder="Enter job taking time">
+                <input name="newConMail" type="text" class="form-control" id="newContactsMail" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newContactsRelation">New Contacts Relationship</label>
-                <input type="text" class="form-control" id="newContactsRelation" placeholder="Enter job taking time">
+                <input name="newConRelation" type="text" class="form-control" id="newContactsRelation" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>

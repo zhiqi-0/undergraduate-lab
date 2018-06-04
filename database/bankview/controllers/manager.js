@@ -48,7 +48,7 @@ var get_account = async (ctx, next) => {
 var get_loan = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/loan.html');
     ctx.response.type = 'html';
-    cctx.render(filepath, {});
+    ctx.render(filepath, {});
 }
 
 var get_statistic = async (ctx, next) => {
