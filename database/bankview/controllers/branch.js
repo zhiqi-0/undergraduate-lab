@@ -58,7 +58,7 @@ var post_branch = async (ctx, next) => {
         branches = await Branch.branch.findAll({
             where: branchNew
         });
-        if(!Object.keys(branches).length){
+        if(!branches.length){
             await Branch.branch.create(branchNew);
         }
         await Branch.department.create(departmentNew);
