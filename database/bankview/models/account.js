@@ -47,8 +47,26 @@ var CreditAccount = db.define('creditAccount', {
     tableName: '支票账户'
 });
 
+var OpenAccount = db.define('openAccount', {
+    身份证: {
+        type: Sequelize.STRING(30),
+        primaryKey: true
+    },
+    账户号: {
+        type: Sequelize.NUMERIC({precision: 20, scale: 0}),
+        primaryKey: true
+    },
+    开户行: Sequelize.STRING(30),
+    账户类型: Sequelize.STRING(30)
+}, {
+    timestamps: false,
+    freezeTableName: true,
+    tableName: '开户'
+});
+
 module.exports = {
     'account': Account,
     'savingAccount': SavingAccount,
-    'creditAccount': CreditAccount
+    'creditAccount': CreditAccount,
+    'openAccount': OpenAccount
 };

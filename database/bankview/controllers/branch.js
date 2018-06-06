@@ -48,7 +48,6 @@ var post_branch = async (ctx, next) => {
     deleteEmpty(departmentNew);
     var option = ctx.request.body.option || 'Search';
     if(option === 'Search'){
-        console.log(JSON.stringify(branchExist));
         var branches = await Branch.branch.findAll({
             include: {model: Branch.department, where: departmentExist},
             where: branchExist
@@ -66,34 +65,42 @@ var post_branch = async (ctx, next) => {
         branches = [branchNew];
     }
     else if(option === 'Delete'){
-        var branches = await Branch.branch.findAll({
-            where: branchExist
-        });
-        for(let b of branches){
-            // if statement
-            var departs = await Branch.department.findAll({
-                where:{
-                    支行名: b.支行名
-                }
+        try{
+            var branches = await Branch.branch.findAll({
+                where: branchExist
             });
-            for(let d of departs){
-                await d.destroy;
+            for(let b of branches){
+                // if statement
+                var departs = await Branch.department.findAll({
+                    where:{
+                        部门号: b.部门号
+                    }
+                });
+                for(let d of departs){
+                    await d.destroy;
+                }
+                await b.destroy();
             }
-            await b.destroy();
+        }catch(e){
+            console.log('Branch Name Foreign Key Error. Delete Failed.');
+            branches = [];
         }
     }
     else if(option === 'Update'){
-        var branches = await Branch.branch.findAll({
-            where: branchExist
-        });
-        for(let b of branches){
-            Object.keys(branchNew).forEach(function(key){
-                b[key] = branchNew[key];
+        try{
+            var branches = await Branch.branch.findAll({
+                where: branchExist
             });
-            await b.save();
+            for(let b of branches){
+                Object.keys(branchNew).forEach(function(key){
+                    b[key] = branchNew[key];
+                });
+                await b.save();
+            }
+        }catch(e){
+            console.log('Branch Account Foreign Key Error. Update Failed.');
         }
     }
-    console.log(JSON.stringify(branches));
     ctx.render(filepath, {branches: branches});
 };
 

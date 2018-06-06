@@ -50,34 +50,62 @@
         <div class="row" style="margin-top:3em;">
           <!-- data view section-->
           <div class="col-lg-6 col-md-6 col-sm-12">
-              Data shows here
+                <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>贷款号</th>
+                      <th>支行名</th>
+                      <th>贷款金额</th>
+                      <th>总共支付次数</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for l in loans %}
+                    <tr>
+                       <td>{{l.贷款号}}</td>
+                       <td>{{l.支行名}}</td>
+                       <td>{{l.贷款金额}}</td>
+                       <td>{{l.总共支付次数}}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                      <td>--</td>
+                      <td>--</td>
+                      <td>--</td>
+                      <td>--</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                </div>
           </div>
           <!-- manager optional section -->
           <div class="col-lg-3 col-md-3 col-sm-12">
             <h3>Exist Form</h3>
             <div class="form-group">
                 <label for="existLoanNumber">Exist Loan Number</label>
-                <input type="text" class="form-control" id="existLoanNumber" placeholder="Enter employer ID">
+                <input name="existLoanID" type="text" class="form-control" id="existLoanNumber" placeholder="Enter employer ID">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
-                <label for="existDepartName">Exist Department Name</label>
-                <input type="text" class="form-control" id="existDepartName" placeholder="Enter employer name">
+                <label for="existBranchName">Exist Branch Name</label>
+                <input name="existBranchName" type="text" class="form-control" id="existBranchName" placeholder="Enter employer name">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
             </div>
             <div class="form-group">
                 <label for="existMoney">Exist Total Money</label>
-                <input type="text" class="form-control" id="existMoney" placeholder="Enter employer address">
+                <input name="existMoney" type="text" class="form-control" id="existMoney" placeholder="Enter employer address">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="existPaymentTime">Exist Payment Times</label>
-                <input type="text" class="form-control" id="existPaymentTime" placeholder="Enter employer phone">
+                <input name="existPaymentTime" type="text" class="form-control" id="existPaymentTime" placeholder="Enter employer phone">
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
                 <label for="manageOption">Manage Option</label>
-                <select class="form-control" id="manageOption">
+                <select name="option" class="form-control" id="manageOption">
                     <option>Search</option>
                     <option>Create</option>
                     <option>Delete</option>
@@ -88,22 +116,22 @@
             <h3>Update Form</h3>
             <div class="form-group">
                 <label for="newLoanNum">New Loan Number</label>
-                <input type="text" class="form-control" id="newLoanNum" placeholder="Enter employer ID">
+                <input name="newLoanID" type="text" class="form-control" id="newLoanNum" placeholder="Enter employer ID">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
-                <label for="newDepartName">New Department Name</label>
-                <input type="text" class="form-control" id="newDepartName" placeholder="Enter employer name">
+                <label for="newBranchName">New Branch Name</label>
+                <input name="newBranchName" type="text" class="form-control" id="newBranchName" placeholder="Enter employer name">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newTotalMoney">New Total Money</label>
-                <input type="text" class="form-control" id="newTotalMoney" placeholder="Enter employer address">
+                <input name="newMoney" type="text" class="form-control" id="newTotalMoney" placeholder="Enter employer address">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <div class="form-group">
                 <label for="newPaymentTime">New Payment Times</label>
-                <input type="text" class="form-control" id="newPaymentTime" placeholder="Enter employer phone">
+                <input name="newPaymentTime" type="text" class="form-control" id="newPaymentTime" placeholder="Enter employer phone">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>

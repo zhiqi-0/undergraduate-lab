@@ -50,6 +50,7 @@
         <div class="row" style="margin-top:3em;">
           <!-- data view section-->
           <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="table-responsive">
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -57,6 +58,9 @@
                   <th>余额</th>
                   <th>开户日期</th>
                   <th>最近访问日期</th>
+                  <th>利率</th>
+                  <th>货币类型</th>
+                  <th>透支额</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,9 +70,15 @@
                    <td>{{acc.余额}}</td>
                    <td>{{acc.开户日期}}</td>
                    <td>{{acc.最近访问日期}}</td>
+                   <td>{{acc.利率}}</td>
+                   <td>{{acc.货币类型}}</td>
+                   <td>{{acc.透支额}}</td>
                 </tr>
                 {% else %}
                 <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
                   <td>--</td>
                   <td>--</td>
                   <td>--</td>
@@ -77,10 +87,21 @@
                 {% endfor %}
               </tbody>
             </table>
+            </div>
           </div>
           <!-- manager optional section -->
           <div class="col-lg-3 col-md-3 col-sm-12">
             <h3>Exist Form</h3>
+            <div class="form-group">
+                <label for="existCusID">Exist Customer ID</label>
+                <input name="existCusID" type="text" class="form-control" id="existCusID" placeholder="Enter employer ID">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+            </div>
+            <div class="form-group">
+                <label for="existBranchName">Exist Branch Name</label>
+                <input name="existBranchName" type="text" class="form-control" id="existBranchName" placeholder="Enter Branch Name">
+                <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small>
+            </div>
             <div class="form-group">
                 <label for="existAccount">Exist Account</label>
                 <input name="existAccNum" type="text" class="form-control" id="existAccount" placeholder="Enter employer ID">
@@ -117,6 +138,14 @@
                 <small id="existHelp" class="form-text text-muted">Only for search, update, delete</small> 
             </div>
             <div class="form-group">
+                <label for="existCardType">Card Type</label>
+                <select name="existCardType" class="form-control" id="existCardType">
+                    <option>All</option>
+                    <option>Credit</option>
+                    <option>Saving</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="manageOption">Manage Option</label>
                 <select name="option" class="form-control" id="manageOption">
                     <option>Search</option>
@@ -128,6 +157,16 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-12">
             <h3>Update Form</h3>
+            <div class="form-group">
+                <label for="newCusID">New Customer ID</label>
+                <input name="newCusID" type="text" class="form-control" id="newCusID" placeholder="Enter employer ID">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <div class="form-group">
+                <label for="newBranchName">New Branch Name</label>
+                <input name="newBranchName" type="text" class="form-control" id="newBranchName" placeholder="Enter Branch Name">
+                <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
             <div class="form-group">
                 <label for="newAccount">New Account</label>
                 <input name="newAccNum" type="text" class="form-control" id="newAccount" placeholder="Enter employer ID">
@@ -162,6 +201,13 @@
                 <label for="newCurrencyType">New Currency Type</label>
                 <input name="newCurrType" type="text" class="form-control" id="newCurrencyType" placeholder="Enter job taking time">
                 <small id="createHelp" class="form-text text-muted">Only for create, update</small>
+            </div>
+            <div class="form-group">
+                <label for="newCardType">New Card Type</label>
+                <select name="newCardType" class="form-control" id="newCardType">
+                    <option>Credit</option>
+                    <option>Saving</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary" style="margin-top:2em;">Submit</button>
           </div>

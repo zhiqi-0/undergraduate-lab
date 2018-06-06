@@ -13,49 +13,43 @@ var post_manager = async (ctx, next) => {
     else{
         ctx.response.body = `<h1>Try again</h1>`;
     }
-}
+};
 
 var get_manager = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/manager.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
+};
 
 var get_branch = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/branch.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
+};
 
 var get_employer = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/employer.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
+};
 
 var get_customer = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/customer.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
+};
 
 var get_account = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/account.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
+};
 
 var get_loan = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/loan.html');
     ctx.response.type = 'html';
     ctx.render(filepath, {});
-}
-
-var get_statistic = async (ctx, next) => {
-    var filepath = path.resolve(__dirname + '/../views/statistic.html');
-    ctx.response.type = 'html';
-    ctx.render(filepath, {});
-}
+};
 
 module.exports = {
     'POST /manager': post_manager,
@@ -65,5 +59,4 @@ module.exports = {
     'GET /customer': get_customer,
     'GET /account': get_account,
     'GET /loan': get_loan,
-    'GET /statistic': get_statistic
 };

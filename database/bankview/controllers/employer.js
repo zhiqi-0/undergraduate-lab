@@ -1,4 +1,3 @@
-const people = require('../models/people');
 const employer = require('../models/employer');
 const Sequelize = require('sequelize');
 const fs = require('fs');
@@ -14,15 +13,6 @@ function deleteEmpty(obj){
 
 var post_employer = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/employer.html');
-    var peopleExist = {
-        身份证: ctx.request.body.existID
-    };
-    var peopleNew = {
-        身份证: ctx.request.body.newID,
-        姓名: ctx.request.body.newName,
-        家庭地址: ctx.request.body.newAddr,
-        电话号码: ctx.request.body.newPhone
-    };
     var employerExist = {
         身份证: ctx.request.body.existID,
         部门号: ctx.request.body.existDepartNum,
@@ -42,20 +32,12 @@ var post_employer = async (ctx, next) => {
     var option = ctx.request.body.option;
     deleteEmpty(employerExist);
     deleteEmpty(employerNew);
-    deleteEmpty(peopleNew);
     if(option === 'Search'){
         var employers = await employer.findAll({
             where: employerExist
         });
     }
     else if(option === 'Create'){
-         // if people table haven't got this employer, add it
-        var peoples = await people.findAll({
-            where: peopleNew
-        });
-        if(!peoples.length){
-            await people.create(peopleNew);
-        }
         var employers = await employer.create(employerNew);
         employers = [employerNew];
     }

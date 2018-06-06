@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/utils.css">
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../static/js/highcharts.js"></script>
+    <script type="text/javascript" src="../static/js/highcharts-3d.js"></script>
     <div class="container">
         <div class="overlay"></div>
     </div>
@@ -42,12 +45,112 @@
               </ul>             
         </div>
     </nav>
-
-
-
-
+    <!--Dashboad-->
+    <div class="container">
+      <div class="row" style="margin-top:5em;">
+        <div class="col-lg-6 col-md-6">
+          <div id="pie1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+          <script language="Javascript">
+            $(document).ready(function(){
+              var chart = {
+                type: 'pie',
+                backgroundColor: 'rgb(0,0,0,0)',
+                options3d: {
+                  enabled: true,
+                  alpha: 45
+                }
+              };
+              var title = {
+                text: '账号类型分布'
+              };
+              var plotOptions = {
+                pie: {
+                  innerSize: 100,
+                  depth: 45
+                }
+              };
+              var series = [{
+                name: '账号类型',
+                data: [
+                  ['储蓄账户', {{savingNum}}],
+                  ['支票账户', {{creditNum}}]
+                ]
+              }];
+              var credits = {
+                enabled: false
+              };
+              var json = {};
+              json.chart = chart;
+              json.title = title;
+              json.plotOptions = plotOptions;
+              json.series = series;
+              json.credits = credits
+              $('#pie1').highcharts(json);
+            });
+          </script>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div id="column1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+            <script language="JavaScript">
+              $(document).ready(function() {  
+                 var chart = {
+                    type: 'column',
+                    backgroundColor: 'rgb(0,0,0,0)'
+                 };
+                 var title = {
+                    text: '银行数据统计'   
+                 };
+                 var xAxis = {
+                    categories: ['员工总数', '顾客总数', '支行总数'],
+                    crosshair: true
+                 };
+                 var yAxis = {
+                    min: 0,
+                    title: {
+                       text: '数量(个)'         
+                    }      
+                 };
+                 var tooltip = {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                       '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                 };
+                 var plotOptions = {
+                    column: {
+                       pointPadding: 0.2,
+                       borderWidth: 0
+                    }
+                 };  
+                 var credits = {
+                    enabled: false
+                 };
+                 
+                 var series= [{
+                      name: "Zhiqi's Bank",
+                          data: [{{employerNum}},{{customerNum}},{{branchNum}}]
+                      }
+                 ];     
+                    
+                 var json = {};   
+                 json.chart = chart; 
+                 json.title = title;   
+                 json.tooltip = tooltip;
+                 json.xAxis = xAxis;
+                 json.yAxis = yAxis;  
+                 json.series = series;
+                 json.plotOptions = plotOptions;  
+                 json.credits = credits;
+                 $('#column1').highcharts(json);
+              });
+            </script>
+        </div>
+      </div>
+    </div>
+    
     <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="../static/js/utils.js"></script>
 </body>
 

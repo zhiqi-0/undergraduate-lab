@@ -1,5 +1,4 @@
 const customer = require('../models/customer');
-const people = require('../models/people');
 const employer = require('../models/employer');
 const Sequelize = require('sequelize');
 const fs = require('fs');
@@ -15,17 +14,8 @@ function deleteEmpty(obj){
 
 var post_customer = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/customer.html');
-    var peopleExist = {
-        身份证: ctx.request.body.existID
-    };
     var employerExist = {
         身份证: ctx.request.body.newAssigneeID
-    };
-    var peopleNew = {
-        身份证: ctx.request.body.newID,
-        姓名: ctx.request.body.newName,
-        家庭地址: ctx.request.body.newAddr,
-        电话号码: ctx.request.body.newPhone
     };
     var customerExist = {
         身份证: ctx.request.body.existID,
@@ -52,31 +42,19 @@ var post_customer = async (ctx, next) => {
     var option = ctx.request.body.option;
     deleteEmpty(customerExist);
     deleteEmpty(customerNew);
-    deleteEmpty(peopleNew);
     if(option === 'Search'){
         var customers = await customer.findAll({
             where: customerExist
         });
     }
     else if(option === 'Create'){
-         // if people table haven't got this customer, add it
-        var peoples = await people.findAll({
-            where: peopleNew
-        });
-        if(!Object.keys(peoples).length){
-            await people.create(peopleNew);
+        try{
+            var customers = await customer.create(customerNew);
+            customers = [customerNew];
+        }catch(e){
+            console.log('Customer: Employer ID not exist');
+            customers = [];
         }
-        // check employer table
-        var employers = await people.findAll({
-            where: employerExist
-        });
-        if(!Object.keys(employers).length){
-            console.log("employer: didn't find employer:" + ctx.request.body.newAssigneeID);
-            ctx.render(filepath, {});
-            return;
-        }
-        var customers = await customer.create(customerNew);
-        customers = [customerNew];
     }
     else if(option === 'Delete'){
         var customers = await customer.findAll({
@@ -94,7 +72,11 @@ var post_customer = async (ctx, next) => {
             Object.keys(customerNew).forEach(function(key){
                 cus[key] = customerNew[key];
             });
-            await cus.save();
+            try{
+                await cus.save();
+            }catch(e){
+                console.log('Customer: Foreign Key Error. Update Failed');
+            }
         }
     }
     ctx.render(filepath, {customers: customers});
