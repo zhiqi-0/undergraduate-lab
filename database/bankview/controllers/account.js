@@ -145,7 +145,7 @@ var post_account = async (ctx, next) => {
                 });
             }
             for(let acc of accounts){
-                acc.destroy();
+                await acc.destroy();
             }
             // delete account table
             var basicAccounts = await Account.account.findAll({

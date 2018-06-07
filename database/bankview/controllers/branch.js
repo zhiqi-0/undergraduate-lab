@@ -86,7 +86,7 @@ var post_branch = async (ctx, next) => {
                     }
                 });
                 for(let d of departs){
-                    await d.destroy;
+                    await d.destroy();
                 }
                 await b.destroy();
             }
