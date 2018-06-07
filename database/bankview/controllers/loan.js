@@ -26,6 +26,8 @@ var post_loan = async (ctx, next) => {
         总共支付次数:   ctx.request.body.newPaymentTime
     };
     option = ctx.request.body.option;
+    var submitRes = 'submit success';
+    var res = 0;
     deleteEmpty(loanExist);
     deleteEmpty(loanNew);
     if(option === 'Search'){
@@ -39,7 +41,9 @@ var post_loan = async (ctx, next) => {
             loans = [loanNew];
         }catch(e){
             console.log('Loan: Unknown Branch Name. Create Failed');
+            submitRes = 'Loan: Unknown Branch Name. Create Failed';
             loans = [];
+            res = 1;
         }
     }
     else if(option === 'Delete'){
@@ -51,6 +55,9 @@ var post_loan = async (ctx, next) => {
                 l.destroy();
             }catch(e){
                 console.log('Loan: Foreign Key Error. Delete Failed');
+                submitRes = 'Loan: Foreign Key Error. Delete Failed';
+                loans = [];
+                res = 1;
             }
         }
     }
@@ -66,11 +73,13 @@ var post_loan = async (ctx, next) => {
                 await l.save();
             }catch(e){
                 console.log('Loan: Foreign Key Error. Update Failed');
+                submitRes = 'Loan: Foreign Key Error. Update Failed';
                 loans = [];
+                res = 1;
             }
         }
     }*/
-    ctx.render(filepath, {loans: loans});
+    ctx.render(filepath, {loans: loans, res: res, submitRes: submitRes});
 };
 
 module.exports = {

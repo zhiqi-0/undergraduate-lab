@@ -14,7 +14,6 @@ function deleteEmpty(obj){
 
 var post_account = async (ctx, next) => {
     var filepath = path.resolve(__dirname + '/../views/account.html');
-    console.log(JSON.stringify(ctx.request.body));
     var accountExist = {
         账户号: ctx.request.body.existAccNum,
         余额: ctx.request.body.existBalance,
@@ -73,6 +72,8 @@ var post_account = async (ctx, next) => {
     deleteEmpty(creditAccountExist);
     deleteEmpty(creditAccountNew);
     deleteEmpty(openAccountNew);
+    var submitRes = 'submit success';
+    var res = 0;
     if(option === 'Search'){
         var creditRes = [], savingRes = [], accounts = [];
         if(existType === 'Credit' || existType === 'All'){
@@ -110,11 +111,15 @@ var post_account = async (ctx, next) => {
                 }
             }catch(e){
                 console.log('Account Customer ID not exist. Create Failed.');
+                submitRes = 'Account Customer ID not exist. Create Failed.';
                 accounts = [];
+                res = 1;
             }
         }
         else{
             console.log("One Branch No more than 1 card per type. Create Failed");
+            submitRes = 'Account Customer ID not exist. Create Failed.';
+            accounts = [];
         }
     }
     else if(option === 'Delete'){
@@ -151,11 +156,26 @@ var post_account = async (ctx, next) => {
             }
         }catch(e){
             console.log('Account Foreign Key Error. Delete Failed.');
+            submitRes = 'Account Foreign Key Error. Delete Failed.';
             accounts = [];
+            res = 1;
         }
     }
     else if(option === 'Update'){
         try{
+            // update account info
+            var basicAccounts = await Account.account.findAll({
+                where: accountNew
+            });
+            for(let bacc of basicAccounts){
+                Object.keys(accountNew).forEach(function(key){
+                    if(key != '账户号'){
+                        bacc[key] = accountNew[key];
+                    }
+                })
+                await bacc.save();
+            }
+            // update specific account info
             if(existType === 'Credit'){
                 var accounts = await Account.creditAccount.findAll({
                     where: creditAccountExist
@@ -184,10 +204,12 @@ var post_account = async (ctx, next) => {
             }
         }catch(e){
             console.log('Account Foreign Key Error. Create Failed.');
+            submitRes = 'Account Foreign Key Error. Create Failed.';
             accounts = [];
+            res = 1;
         }
     }
-    ctx.render(filepath, {accounts: accounts});
+    ctx.render(filepath, {accounts: accounts, res: res, submitRes: submitRes});
 };
 
 module.exports = {

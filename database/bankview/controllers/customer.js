@@ -40,6 +40,8 @@ var post_customer = async (ctx, next) => {
         联系人关系: ctx.request.body.newConRelation
     };
     var option = ctx.request.body.option;
+    var submitRes = 'submit success';
+    var res = 0;
     deleteEmpty(customerExist);
     deleteEmpty(customerNew);
     if(option === 'Search'){
@@ -53,7 +55,9 @@ var post_customer = async (ctx, next) => {
             customers = [customerNew];
         }catch(e){
             console.log('Customer: Employer ID not exist');
+            submitRes = 'Customer: Employer ID not exist';
             customers = [];
+            res = 1;
         }
     }
     else if(option === 'Delete'){
@@ -61,7 +65,14 @@ var post_customer = async (ctx, next) => {
             where: customerExist
         });
         for(let cus of customers){
-            await cus.destroy();
+            try{
+                await cus.destroy();
+            }catch(e){
+                console.log('Customer: Foreign Key Error. Delete Failed');
+                submitRes = 'Customer: Foreign Key Error. Delete Failed';
+                customers = [];
+                res = 1;
+            }
         }
     }
     else if(option === 'Update'){
@@ -76,10 +87,13 @@ var post_customer = async (ctx, next) => {
                 await cus.save();
             }catch(e){
                 console.log('Customer: Foreign Key Error. Update Failed');
+                submitRes = 'Customer: Foreign Key Error. Update Failed';
+                customers = [];
+                res = 1;
             }
         }
     }
-    ctx.render(filepath, {customers: customers});
+    ctx.render(filepath, {customers: customers, res: res, submitRes: submitRes});
 }
 
 module.exports = {

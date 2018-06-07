@@ -30,6 +30,8 @@ var post_employer = async (ctx, next) => {
         开始工作日期: ctx.request.body.newWorkTime
     };
     var option = ctx.request.body.option;
+    var submitRes = 'submit success';
+    var res = 0;
     deleteEmpty(employerExist);
     deleteEmpty(employerNew);
     if(option === 'Search'){
@@ -38,15 +40,27 @@ var post_employer = async (ctx, next) => {
         });
     }
     else if(option === 'Create'){
-        var employers = await employer.create(employerNew);
-        employers = [employerNew];
+        try{
+            var employers = await employer.create(employerNew);
+            employers = [employerNew];
+        }catch(e){
+            res = 1;
+            submitRes = 'Already exists employer ID';
+            employers = [];
+        }
     }
     else if(option === 'Delete'){
         var employers = await employer.findAll({
             where: employerExist
         });
         for(let emp of employers){
-            await emp.destroy();
+            try{
+                await emp.destroy();
+            }catch(e){
+                res = 1;
+                submitRes = 'Foreign Key Error. Delete Failed.';
+                employers = [];
+            }
         }
     }
     else if(option === 'Update'){
@@ -57,10 +71,16 @@ var post_employer = async (ctx, next) => {
             Object.keys(employerNew).forEach(function(key){
                 emp[key] = employerNew[key];
             });
-            await emp.save();
+            try{
+                await emp.save();
+            }catch(e){
+                res = 1;
+                submitRes = 'Foreign Key Error. Update Failed.';
+                employers = [];
+            }
         }
     }
-    ctx.render(filepath, {employers: employers});
+    ctx.render(filepath, {employers: employers, res: res, submitRes: submitRes});
 }
 
 module.exports = {

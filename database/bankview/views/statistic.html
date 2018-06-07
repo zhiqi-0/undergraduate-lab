@@ -49,7 +49,7 @@
     <div class="container">
       <div class="row" style="margin-top:5em;">
         <div class="col-lg-6 col-md-6">
-          <div id="pie1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+          <div id="pie1" style="width: 400px; height: 300px; margin: 0 auto"></div>
           <script language="Javascript">
             $(document).ready(function(){
               var chart = {
@@ -88,9 +88,64 @@
               $('#pie1').highcharts(json);
             });
           </script>
-        </div>
+        <div id="column2" style="width: 400px; height: 300px; margin: 0 auto"></div>
+            <script language="JavaScript">
+              $(document).ready(function() {  
+                 var chart = {
+                    type: 'column',
+                    backgroundColor: 'rgb(0,0,0,0)'
+                 };
+                 var title = {
+                    text: '银行财务统计'   
+                 };
+                 var xAxis = {
+                    categories: ['存款总数', '贷款总数'],
+                    crosshair: true
+                 };
+                 var yAxis = {
+                    min: 0,
+                    title: {
+                       text: '人命币(万)'         
+                    }      
+                 };
+                 var tooltip = {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                       '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                 };
+                 var plotOptions = {
+                    column: {
+                       pointPadding: 0.2,
+                       borderWidth: 0
+                    }
+                 };  
+                 var credits = {
+                    enabled: false
+                 };
+                 
+                 var series= [{
+                      name: "Zhiqi's Bank",
+                          data: [{{balanceNum}},{{loanNum}}]
+                      }
+                 ];     
+                 var json = {};   
+                 json.chart = chart; 
+                 json.title = title;   
+                 json.tooltip = tooltip;
+                 json.xAxis = xAxis;
+                 json.yAxis = yAxis;  
+                 json.series = series;
+                 json.plotOptions = plotOptions;  
+                 json.credits = credits;
+                 $('#column2').highcharts(json);
+              });
+            </script>
+            </div>
         <div class="col-lg-6 col-md-6">
-            <div id="column1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+            <div id="column1" style="width: 400px; height: 300px; margin: 0 auto"></div>
             <script language="JavaScript">
               $(document).ready(function() {  
                  var chart = {
@@ -126,14 +181,12 @@
                  };  
                  var credits = {
                     enabled: false
-                 };
-                 
+                 };                
                  var series= [{
                       name: "Zhiqi's Bank",
                           data: [{{employerNum}},{{customerNum}},{{branchNum}}]
                       }
                  ];     
-                    
                  var json = {};   
                  json.chart = chart; 
                  json.title = title;   

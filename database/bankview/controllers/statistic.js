@@ -17,6 +17,10 @@ var get_statistic = async (ctx, next) => {
     param.creditNum = creditNum[0][0].num;
     var savingNum = await db.query('select count(1) as num from `储蓄账户`');
     param.savingNum = savingNum[0][0].num;
+    var balanceNum = await db.query('select sum(余额) as balance from `账户`');
+    param.balanceNum = balanceNum[0][0].balance / 10000.0;
+    var loanNum = await db.query('select sum(贷款金额) as loan from `贷款`');
+    param.loanNum = loanNum[0][0].loan / 10000.0;
     ctx.render(filepath, param);
 };
 

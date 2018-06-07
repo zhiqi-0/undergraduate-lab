@@ -47,6 +47,8 @@ var post_branch = async (ctx, next) => {
     deleteEmpty(departmentExist);
     deleteEmpty(departmentNew);
     var option = ctx.request.body.option || 'Search';
+    var submitRes = 'submit success';
+    var res = 0;
     if(option === 'Search'){
         var branches = await Branch.branch.findAll({
             include: {model: Branch.department, where: departmentExist},
@@ -54,15 +56,22 @@ var post_branch = async (ctx, next) => {
         });
     }
     else if(option === 'Create'){
-        branches = await Branch.branch.findAll({
-            where: branchNew
-        });
-        if(!branches.length){
-            await Branch.branch.create(branchNew);
+        try{
+            branches = await Branch.branch.findAll({
+                where: branchNew
+            });
+            if(!branches.length){
+                await Branch.branch.create(branchNew);
+            }
+            await Branch.department.create(departmentNew);
+            branchNew['departments'] = [departmentNew];
+            branches = [branchNew];
+        }catch(e){
+            console.log('Branch or department already exists. Create Failed.');
+            submitRes = 'Branch or department already exists. Create Failed.';
+            branches = [];
+            res = 1;
         }
-        await Branch.department.create(departmentNew);
-        branchNew['departments'] = [departmentNew];
-        branches = [branchNew];
     }
     else if(option === 'Delete'){
         try{
@@ -83,7 +92,9 @@ var post_branch = async (ctx, next) => {
             }
         }catch(e){
             console.log('Branch Name Foreign Key Error. Delete Failed.');
+            submitRes = 'Branch Name Foreign Key Error. Delete Failed.';
             branches = [];
+            res = 1;
         }
     }
     else if(option === 'Update'){
@@ -99,9 +110,12 @@ var post_branch = async (ctx, next) => {
             }
         }catch(e){
             console.log('Branch Account Foreign Key Error. Update Failed.');
+            submitRes = 'Branch Account Foreign Key Error. Update Failed.';
+            branches = [];
+            res = 1;
         }
     }
-    ctx.render(filepath, {branches: branches});
+    ctx.render(filepath, {branches: branches, res: res, submitRes: submitRes});
 };
 
 module.exports= {
