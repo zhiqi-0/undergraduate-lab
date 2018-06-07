@@ -1,4 +1,4 @@
-const loan = require('../models/loan');
+const Loan = require('../models/loan');
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -31,13 +31,38 @@ var post_loan = async (ctx, next) => {
     deleteEmpty(loanExist);
     deleteEmpty(loanNew);
     if(option === 'Search'){
-        var loans = await loan.findAll({
+        var loans = await Loan.loan.findAll({
             where: loanExist
         });
+        for(l of loans){
+            var finishState = '未开始';
+            var pays = await Loan.payment.findAll({
+                where: {
+                    支付序号: 1,
+                    贷款号: l.贷款号
+                }
+            });
+            if(pays.length == 0){
+                finishState = '未开始';
+            }
+            else{
+                pays = await Loan.payment.findAll({
+                    where: {
+                        支付序号: l.总共支付次数,
+                        贷款号: l.贷款号
+                    }
+                });
+                if(pays.length != 0)
+                    finishState = '已完成';
+                else
+                    finishState = '进行中';
+            }
+            l.完成情况 = finishState;
+        }
     }
     else if(option === 'Create'){
         try{
-            var loans = await loan.create(loanNew);
+            var loans = await Loan.loan.create(loanNew);
             loans = [loanNew];
         }catch(e){
             console.log('Loan: Unknown Branch Name. Create Failed');
@@ -47,22 +72,38 @@ var post_loan = async (ctx, next) => {
         }
     }
     else if(option === 'Delete'){
-        var loans = await loan.findAll({
+        var loans = await Loan.loan.findAll({
             where: loanExist
         });
         for(let l of loans){
+            var pays = await Loan.payment.findAll({
+                where: {
+                    支付序号: l.总共支付次数,
+                    贷款号: l.贷款号
+                }
+            });
+            if(pays.length != 0){
+                pays = await Loan.payment.findAll({
+                    where: {
+                        贷款号: l.贷款号
+                    }
+                });
+                for(p of pays)
+                    p.destroy();
+            }
             try{
-                l.destroy();
+                await l.destroy();
+                l.完成情况 = '完成已删除';
             }catch(e){
                 console.log('Loan: Foreign Key Error. Delete Failed');
-                submitRes = 'Loan: Foreign Key Error. Delete Failed';
+                submitRes = 'Loan: Loan is Under Processing. Delete Failed';
                 loans = [];
                 res = 1;
             }
         }
     }
     /*else if(option === 'Update'){
-        var loans = await loan.findAll({
+        var loans = await Loan.loan.findAll({
             where: loanExist
         });
         for(let l of loans){
