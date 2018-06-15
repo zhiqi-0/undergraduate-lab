@@ -21,6 +21,8 @@ var get_statistic = async (ctx, next) => {
     param.balanceNum = balanceNum[0][0].balance / 10000.0;
     var loanNum = await db.query('select sum(贷款金额) as loan from `贷款`');
     param.loanNum = loanNum[0][0].loan / 10000.0;
+    var empNumPerBranch = await db.query('select 部门.支行名 as branchName, count(1) as empNum from 部门, 员工 where 部门.部门号 = 员工.部门号 group by 部门.支行名');
+    param.branchStats = empNumPerBranch[0];
     ctx.render(filepath, param);
 };
 
