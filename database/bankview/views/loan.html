@@ -58,15 +58,17 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
+                      <th>完成情况</th>
                       <th>贷款号</th>
                       <th>支行名</th>
                       <th>贷款金额</th>
-                      <th>总共支付次数</th>
+                      <th>总共需支付次数</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for l in loans %}
                     <tr>
+                       <td>{{l.完成情况}}</td>
                        <td>{{l.贷款号}}</td>
                        <td>{{l.支行名}}</td>
                        <td>{{l.贷款金额}}</td>
@@ -74,6 +76,7 @@
                     </tr>
                     {% else %}
                     <tr>
+                      <td>--</td>
                       <td>--</td>
                       <td>--</td>
                       <td>--</td>
