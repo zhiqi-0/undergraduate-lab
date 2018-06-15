@@ -215,9 +215,22 @@ void DBLock::_handleLock(std::string transactionID, const std::string& object, L
     }
     // add to wait list
     auto waitIt = _lockWait.find(object);
-    if(waitIt == _lockWait.end())
+    if(waitIt == _lockWait.end()){
         _lockWait[object] = std::vector<std::tuple<std::string, LockType> >();
-    _lockWait[object].push_back(std::make_tuple(transactionID, lockType));
+        _lockWait[object].push_back(std::make_tuple(transactionID, lockType));
+    }
+    // check wheter wait list have S lock on same transaction: S->X
+    else if(lockType == LockType::X){
+        auto waitList = _lockWait[object];
+        for(int i = 0; i < waitList.size(); ++i){
+            if(std::get<0>(waitList[i]) == transactionID && std::get<1>(waitList[i]) == LockType::S){
+                waitList.erase(waitList.begin() + i);
+                break;
+            }
+        }
+        waitList.push_back(std::make_tuple(transactionID, lockType));
+        _lockWait[object] = waitList;
+    }
     std::cout << typeString[lockType] << " " + transactionID << " " + object
               << " : Wait for lock" << std::endl;
     return;
@@ -236,7 +249,7 @@ void DBLock::_show(){
         auto waitLocks = item.second;
         for(int i = 0; i < waitLocks.size(); ++i){
             std::cout << typeString[std::get<1>(waitLocks[i])] 
-                      << "(" << std::get<0>(waitLocks[0]) << ") ";
+                      << "(" << std::get<0>(waitLocks[i]) << ") ";
         }
         std::cout << std::endl;
     }
