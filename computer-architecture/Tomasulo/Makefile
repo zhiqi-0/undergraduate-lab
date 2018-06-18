@@ -9,7 +9,7 @@ tomasulo: RegStat.java Buffer.java Reservation.java Tomasulo.java
 	$(JC) Tomasulo.java RegStat.java Buffer.java Reservation.java
 
 run:
-	java Tomasulo
+	java UI
 
 clean:
 	rm *.class
