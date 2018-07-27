@@ -3,11 +3,11 @@
 ## Content
 
 * digital-circuit-lab/MIPS\_pipeline\_out
-  * 基于 MIPS 流水线 CPU 设计，设计平台使用 Xilinx ISE 14.7
-  * 实现功能：基础16条指令+额外8条指令，转发机制，load 相关（算入转发），动态分支预测，开发板（Sparten 6)下载, 开发板随机访存、顺序访存
-  * 展示实例为运行 3，3 位起始的斐波那契数列，并按顺序存入内存 ram 单元
-  * 没有实现中断
-  * 单元测试结果以 Mars 运行结果为准，已经经过测试，测试代码未上传，可自拟
+  * CPU designed based on MIPS pipeline, platform: Xilinx ISE 14.7
+  * Features: basic 16 instructions + 8 extra instructions, forwarding mechanism, dynamic branch prediction, Sparten 6 downloads, random memory acess, ordered memory access
+  * Showing examples: Fibonacci array starting with 3,3, and saving into RAM units
+  * Interrupt / Exception is not implemented
+  * Instructions have already been tested by Mars simulator. No test codes included in this repo.
 
 * algorithm lab
   * fft
@@ -28,6 +28,13 @@
   * resolution
   * 22 digits problem (AStar alg & IDAStar alg)
   * N-queen problem (Annealing & climbing alg)
+  * spam-detect (using Bayes, SVM)
 
 * software engineering
   * calculator design; (javafx)
+
+* data base
+  * MySql basic usage
+  * B/S bank client view (using Node.JS)
+  * Lock-terminal Design
+
