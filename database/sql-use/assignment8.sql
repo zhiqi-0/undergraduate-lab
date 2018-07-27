@@ -1,0 +1,1 @@
+select name, id from book where name like '%Oracle%';
