@@ -3,3 +3,9 @@ compilers/c1interpreter/build/
 compilers/c1recognizer/build
 *.pyc
 *.class
+*.npy
+*.txt
+*.zip
+database/bankview/node_modules/*
+*.docx
+*.pdf
